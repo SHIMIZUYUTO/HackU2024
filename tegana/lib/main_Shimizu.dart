@@ -12,7 +12,7 @@
               title: Text('Welcome to Flutter'),
             ),
             body: Center( /*7*/
-              child: Text('こんにちは'),
+              child: Text('こんにちは魔装士'),
             ),
           ),
         );

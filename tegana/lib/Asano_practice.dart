@@ -1,70 +1,59 @@
 import 'package:flutter/material.dart';
 
-void main() => runApp(MyApp());
-
 class MyApp extends StatelessWidget {
   @override
   Widget build(BuildContext context) {
     return MaterialApp(
-      title: 'Stateful',
+      title: 'Form',
       home: Scaffold(
         appBar: AppBar(
-          title: Text('Stateful'),
+          title: Text('Form'),
         ),
         body: Center(
-          child: ClickGood(),
+          child: ChangeForm(),
         ),
       ),
     );
   }
 }
 
-class ClickGood extends StatefulWidget {
+class ChangeForm extends StatefulWidget {
   @override
-  _ClickGoodState createState() => _ClickGoodState();
+  _ChangeFormState createState() => _ChangeFormState();
 }
 
-class _ClickGoodState extends State<ClickGood> {
-  bool _active = false;
+class _ChangeFormState extends State<ChangeForm> {
+  int _count = 0;
 
-  void _handleTap() {
+  void _handlePressed() {
     setState(() {
-      _active = !_active;
+      _count++;
     });
   }
 
   Widget build(BuildContext context) {
-    return GestureDetector(
-      onTap: _handleTap,
-      child: Container(
-        child: Column(
-          children: <Widget>[
-            Container(
-              child: Center(
-                child: new Icon(
-                  Icons.thumb_up,
-                  color: _active ? Colors.orange[700] : Colors.grey[500],
-                  size: 100.0,
-                ),
-              ),
-              width: 200.0,
-              height: 200.0,
+    return Container(
+      padding: const EdgeInsets.all(50.0),
+      child: Column(
+        children: <Widget>[
+          Text(
+            "$_count",
+            style: TextStyle(
+              color:Colors.blueAccent,
+              fontSize: 30.0,
+              fontWeight: FontWeight.w500
             ),
-            Container(
-              child: Center(
-                child: Text(
-                _active ? 'Active' : 'Inactive',
-                style: TextStyle(fontSize: 32.0, color: Colors.white),
-                ),
-              ),
-              width: 200.0,
-              height: 50.0,
-              decoration: BoxDecoration(
-                color: _active ? Colors.orange[700] : Colors.grey[600],
-              ),
-            ),
-          ]
-        ),
+          ),
+          TextButton(
+              onPressed: _handlePressed,
+               child: Text("クリック可"),
+               style: TextButton.styleFrom(
+                 textStyle: const TextStyle(fontSize: 30),
+                 foregroundColor: Colors.blue,
+                 fixedSize: Size(200, 200),
+                 alignment: Alignment.topCenter,
+          )),
+        ],
       )
     );
   }

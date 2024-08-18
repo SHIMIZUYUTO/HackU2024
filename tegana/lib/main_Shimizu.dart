@@ -18,7 +18,7 @@ class MyApp extends StatelessWidget {
         ),
         body: Center(
           /*7*/
-          child: Text('こんにちは秋山'),
+          child: Text('こんにちはシミズ'),
         ),
       ),
     );

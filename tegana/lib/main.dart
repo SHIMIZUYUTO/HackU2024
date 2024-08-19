@@ -1,4 +1,5 @@
 import 'package:flutter/material.dart';
+import 'dart:typed_data';
 
 void main() => runApp(MyApp());
 
@@ -16,7 +17,7 @@ class Player {
 // Cardクラス
 class Card {
   String Y_Reading;
-  Uint8List? Y_Image; // Uint8Listの使い方が分かりません
+  Uint8List? Y_Image;
   Uint8List? E_Org;
   Uint8List? E_Image;
 

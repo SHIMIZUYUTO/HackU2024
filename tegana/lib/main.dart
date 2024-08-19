@@ -15,7 +15,17 @@ class Player {
 
 // Cardクラス
 class Card {
+  String Y_Reading;
+  Uint8List? Y_Image; // Uint8Listの使い方が分かりません
+  Uint8List? E_Org;
+  Uint8List? E_Image;
 
+  Card({
+    required this.Y_Reading, 
+    required this.Y_Image, 
+    required this.E_Org, 
+    required this.E_Image,
+  });
 }
 
 List<Player> playerList = [];

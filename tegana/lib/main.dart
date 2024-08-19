@@ -2,6 +2,7 @@ import 'package:flutter/material.dart';
 
 void main() => runApp(MyApp());
 
+// Playerクラス
 class Player {
   String name;
   int score;
@@ -12,7 +13,13 @@ class Player {
   });
 }
 
+// Cardクラス
+class Card {
+
+}
+
 List<Player> playerList = [];
+List<Card> cardList = [];
 
 class MyApp extends StatelessWidget {
   @override

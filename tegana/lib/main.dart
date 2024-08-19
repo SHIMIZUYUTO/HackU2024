@@ -2,6 +2,16 @@ import 'package:flutter/material.dart';
 
 void main() => runApp(MyApp());
 
+class Player {
+  String name;
+  int score;
+
+  Player({
+    required this.name,
+    this.score = 0
+  });
+}
+
 class MyApp extends StatelessWidget {
   @override
   Widget build(BuildContext context) {

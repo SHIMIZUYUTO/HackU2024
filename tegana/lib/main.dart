@@ -1,5 +1,5 @@
 import 'package:flutter/material.dart';
-import 'dart:typed_data';
+import 'dart:typed_data'; // Uint8Listに必要
 
 void main() => runApp(MyApp());
 

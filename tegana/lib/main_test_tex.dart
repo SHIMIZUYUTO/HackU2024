@@ -29,7 +29,7 @@ class MainPage extends StatelessWidget {
           child: new Column(
             children: <Widget>[
               Text('Main'),
-              RaisedButton(
+              ElevatedButton(
                 onPressed: () => Navigator.of(context).pushNamed("/subpage"),
                 child: new Text('Subページへ'),
               )
@@ -54,7 +54,7 @@ class SubPage extends StatelessWidget {
           child: new Column(
             children: <Widget>[
               Text('Sub'),
-              RaisedButton(
+              ElevatedButton(
                 onPressed: () => Navigator.of(context).pop(),
                 child: new Text('戻る'),
               )

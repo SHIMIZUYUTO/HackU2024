@@ -9,7 +9,7 @@ class MyApp extends StatelessWidget {
       decoration: BoxDecoration(color: Colors.white),
       child: Center(
         child: Text(
-          '秋山です。インディグネイション（テイルズシリーズ)\n\n浅野です。バーニングキャッチ\n\n小笠原です。爆熱ストーム\n\n河野です。ウルフレジェンド\n\n清水です。皇帝ペンギンX',
+          '秋山です。インディグネイション（テイルズシリーズ)\n\n浅野です。バニングキャッチ\n\n小笠原です。爆熱ストーム\n\n河野です。ウルフレジェンド\n\n清水です。皇帝ペンギンX',
           textDirection: TextDirection.ltr,
           style: TextStyle(
             fontSize: 32,

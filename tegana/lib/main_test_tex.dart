@@ -46,15 +46,11 @@ class MainPage extends StatelessWidget {
 class test extends StatelessWidget {
   @override
   Widget build(BuildContext context) {
-    return MaterialApp(
-      home: Scaffold(
-        appBar: AppBar(
-          title: Text('テキスト入力と読み上げの例'),
-        ),
-        body: new Container(
-          child: TextInputWidget(),
-        ),
+    return Scaffold(
+      appBar: AppBar(
+        title: Text('テキスト入力と読み上げの例'),
       ),
+      body: TextInputWidget(),
     );
   }
 }

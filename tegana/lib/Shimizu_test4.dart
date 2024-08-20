@@ -1,4 +1,4 @@
-import 'dart:io';
+import 'dart:typed_data';
 import 'package:flutter/material.dart';
 import 'package:image_picker/image_picker.dart';
 
@@ -30,19 +30,20 @@ class MyHomePage extends StatefulWidget {
 }
 
 class _MyHomePageState extends State<MyHomePage> {
-  File? _image;
+  Uint8List? _imageBytes;
   final picker = ImagePicker();
 
   Future<void> _getImage() async {
     final XFile? pickedFile = await picker.pickImage(source: ImageSource.gallery);
 
-    setState(() {
-      if (pickedFile != null) {
-        _image = File(pickedFile.path);
-      } else {
-        print('No image selected.');
-      }
-    });
+    if (pickedFile != null) {
+      final bytes = await pickedFile.readAsBytes();
+      setState(() {
+        _imageBytes = bytes;
+      });
+    } else {
+      print('No image selected.');
+    }
   }
 
   @override
@@ -52,9 +53,9 @@ class _MyHomePageState extends State<MyHomePage> {
         title: Text(widget.title),
       ),
       body: Center(
-        child: _image == null 
+        child: _imageBytes == null 
             ? Text('No image selected.') 
-            : Image.file(_image!),
+            : Image.memory(_imageBytes!),
       ),
       floatingActionButton: FloatingActionButton(
         onPressed: _getImage,

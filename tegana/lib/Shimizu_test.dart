@@ -27,6 +27,7 @@ class TextInputWidget extends StatefulWidget {
 class _TextInputWidgetState extends State<TextInputWidget> {
   TextEditingController _controller = TextEditingController();
   FlutterTts flutterTts = FlutterTts();
+  String _inputText = ""; // 入力されたテキストを格納する変数
 
   Future<void> _speak(String text) async {
     await flutterTts.setLanguage("ja-JP");  // 日本語に設定
@@ -50,15 +51,22 @@ class _TextInputWidgetState extends State<TextInputWidget> {
           SizedBox(height: 30),
           ElevatedButton(
             onPressed: () {
+              // 入力されたテキストを変数に保存
+              setState(() {
+                _inputText = _controller.text;
+              });
+
               showDialog(
                 context: context,
                 builder: (context) {
                   return AlertDialog(
-                    content: Text('入力されたテキスト: ${_controller.text}'),
+                    content: Text('入力されたテキスト: $_inputText'),
                   );
                 },
               );
-              _speak(_controller.text);  // テキストを読み上げ
+
+              // 変数を使用してテキストを読み上げ
+              _speak(_inputText);
             },
             child: Text('送信と読み上げ'),
           ),

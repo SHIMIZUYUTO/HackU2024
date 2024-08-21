@@ -31,6 +31,7 @@ class Card {
   });
 }
 
+// リストの宣言
 List<Player> playerList = [];
 List<Card> cardList = [];
 
@@ -48,24 +49,61 @@ class MyApp extends StatelessWidget {
   }
 }
 
+// ここから下はメインページですよ。
 class MainPage extends StatelessWidget {
   @override
   Widget build(BuildContext context) {
     return new Scaffold(
       appBar: new AppBar(
-        title: new Text('Navigator'),
+        title: new Text('かるためーかー（仮）'),
+        centerTitle: true,
       ),
       body: new Container(
         padding: new EdgeInsets.all(32.0),
         child: new Center(
           child: new Column(
+            mainAxisAlignment: MainAxisAlignment.center,
             children: <Widget>[
-              Text('Main'),
               ElevatedButton(
                 onPressed: () =>
-                    Navigator.of(context).pushNamed("/testPhoto"), //遷移先の指定
-                child: new Text('絵札登録ページへ'),
-              )
+                // 遷移先は後から実装
+                  Navigator.of(context).pushNamed("/testPhoto"), //遷移先の指定
+                child: const Text('遊ぶ',style: TextStyle(fontSize: 20,color: Colors.black87)),
+                style: ElevatedButton.styleFrom(
+                  backgroundColor: Colors.lightGreen[200],
+                  minimumSize: const Size(200, 50),
+                  shape: RoundedRectangleBorder(
+                    borderRadius: BorderRadius.circular(10),
+                  ),
+                )
+              ),
+              const SizedBox(height: 80), // 余白
+              ElevatedButton(
+                onPressed: () =>
+                  Navigator.of(context).pushNamed("/testPhoto"), //遷移先の指定
+                child: const Text('札を登録する',style: TextStyle(fontSize: 20,color: Colors.black87)),
+                style: ElevatedButton.styleFrom(
+                  backgroundColor: Colors.yellow[200],
+                  minimumSize: const Size(200, 50),
+                  shape: RoundedRectangleBorder(
+                    borderRadius: BorderRadius.circular(10),
+                  ),
+                )      
+              ),
+              const SizedBox(height: 80), // 余白
+              ElevatedButton(
+                onPressed: () =>
+                // 遷移先は後から実装
+                  Navigator.of(context).pushNamed("/testYomifuda"), //遷移先の指定
+                child: const Text('札を見る',style: TextStyle(fontSize: 20,color: Colors.black87)),
+                style: ElevatedButton.styleFrom(
+                  backgroundColor: Colors.lightBlue[200],
+                  minimumSize: const Size(200, 50),
+                  shape: RoundedRectangleBorder(
+                    borderRadius: BorderRadius.circular(10),
+                  ),
+                )
+              ),
             ],
           ),
         ),

@@ -136,7 +136,7 @@ class _MyHomePageState extends State<MyHomePage> {
                   ElevatedButton(
                     onPressed: () {
                       // ここに画面遷移のロジックを追加
-                      Navigator.of(context).pushNamed('/Yomifuda');
+                      Navigator.of(context).pushNamed('/testYomifuda');
                     },
                     child: Text('テキストページへ進む'),
                   ),

@@ -78,13 +78,8 @@ class MainPage extends StatelessWidget {
 class Photo extends StatelessWidget {
   @override
   Widget build(BuildContext context) {
-    return MaterialApp(
-      title: 'Flutter Demo',
-      theme: ThemeData(
-        primarySwatch: Colors.blue,
-        visualDensity: VisualDensity.adaptivePlatformDensity,
-      ),
-      home: MyHomePage(title: 'Flutter Demo Home Page'),
+    return Scaffold(
+      body: MyHomePage(title: '絵札登録ページ'),
     );
   }
 }
@@ -136,7 +131,7 @@ class _MyHomePageState extends State<MyHomePage> {
                   ElevatedButton(
                     onPressed: () {
                       // ここに画面遷移のロジックを追加
-                      Navigator.of(context).pushNamed('/testYomifuda');
+                      Navigator.of(context).pushNamed("/testYomifuda");
                     },
                     child: Text('読み札登録ページへ'),
                   ),

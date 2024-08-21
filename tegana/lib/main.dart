@@ -64,7 +64,7 @@ class MainPage extends StatelessWidget {
               ElevatedButton(
                 onPressed: () =>
                     Navigator.of(context).pushNamed("/testPhoto"), //遷移先の指定
-                child: new Text('Photoページへ'),
+                child: new Text('絵札登録ページへ'),
               )
             ],
           ),
@@ -138,7 +138,7 @@ class _MyHomePageState extends State<MyHomePage> {
                       // ここに画面遷移のロジックを追加
                       Navigator.of(context).pushNamed('/testYomifuda');
                     },
-                    child: Text('テキストページへ進む'),
+                    child: Text('読み札登録ページへ'),
                   ),
                 ],
               ),

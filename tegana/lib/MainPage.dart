@@ -5,7 +5,7 @@ class MainPage extends StatelessWidget {
   Widget build(BuildContext context) {
     return Scaffold(
       appBar: AppBar(
-        title: Text('かるためーかー（Shimizu）'),
+        title: Text('かるためーかー（仮）'),
         centerTitle: true,
       ),
       body: Container(

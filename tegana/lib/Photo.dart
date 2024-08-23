@@ -1,6 +1,11 @@
 import 'package:flutter/material.dart';
 import 'dart:typed_data';
 import 'package:image_picker/image_picker.dart';
+import 'package:image/image.dart' as img;
+import 'main.dart';
+import 'MainPage.dart';
+import 'Yomifuda.dart';
+import 'ImageEditPage.dart';
 
 class Photo extends StatelessWidget {
   @override
@@ -29,12 +34,34 @@ class _MyHomePageState extends State<MyHomePage> {
 
     if (pickedFile != null) {
       final bytes = await pickedFile.readAsBytes();
-      setState(() {
-        _imageBytes = bytes;
-      });
+
+      final editedImageBytes = await Navigator.push(
+        context,
+        MaterialPageRoute(
+          builder: (context) => ImageEditPage(originalImage: bytes),
+        ),
+      );
+
+      if(editedImageBytes != null){
+        setState(() {
+          _imageBytes = editedImageBytes;
+
+          Cards newCard = Cards(
+            Y_Reading: '',
+            Y_Image: null,
+            E_Org: bytes,
+            E_Image: editedImageBytes,
+          );
+          // 後から修正？
+          cardList.add(newCard);
+        });
+
+        print('Image added to cardList. Total cards: ${cardList.length}');
+      }
     } else {
       print('No image selected.');
     }
+
   }
 
   @override

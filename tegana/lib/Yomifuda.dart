@@ -1,5 +1,9 @@
 import 'package:flutter/material.dart';
 import 'package:flutter_tts/flutter_tts.dart';
+import 'main.dart';
+import 'MainPage.dart';
+import 'Photo.dart';
+
 
 class Yomifuda extends StatelessWidget {
   @override

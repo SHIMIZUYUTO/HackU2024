@@ -1,4 +1,5 @@
 import 'package:flutter/material.dart';
+import 'package:tegana/ImageEditPage.dart';
 import 'dart:typed_data'; // Uint8Listに必要
 import 'MainPage.dart';
 import 'Photo.dart';
@@ -17,14 +18,14 @@ class Player {
   });
 }
 
-// Cardクラス
-class Card {
+// Cardsクラス
+class Cards {
   String Y_Reading;
   Uint8List? Y_Image;
   Uint8List? E_Org;
   Uint8List? E_Image;
 
-  Card({
+  Cards({
     required this.Y_Reading, 
     required this.Y_Image, 
     required this.E_Org, 
@@ -34,7 +35,7 @@ class Card {
 
 // リストの宣言
 List<Player> playerList = [];
-List<Card> cardList = [];
+List<Cards> cardList = [];
 
 class MyApp extends StatelessWidget {
   @override

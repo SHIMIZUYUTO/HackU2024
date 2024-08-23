@@ -1,4 +1,7 @@
 import 'package:flutter/material.dart';
+import 'main.dart';
+import 'Photo.dart';
+import 'Yomifuda.dart';
 
 class MainPage extends StatelessWidget {
   @override

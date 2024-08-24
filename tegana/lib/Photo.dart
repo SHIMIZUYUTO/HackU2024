@@ -86,8 +86,9 @@ class _MyHomePageState extends State<MyHomePage> {
                 onPressed: () {
                   try {
                     _cropController.crop();
-                  } catch (e) {
+                  } catch (e,stackTrace) {
                     print('Error during cropping: $e');
+                    print('Stack trace: $stackTrace');
                     ScaffoldMessenger.of(context).showSnackBar(
                       SnackBar(content: Text('画像のクロップ中にエラーが発生しました')),
                     );

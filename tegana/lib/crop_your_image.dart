@@ -14,7 +14,7 @@ Future<Uint8List> loadImageFromNetwork(String url) async{
   if(response.statusCode == 200){
     return response.bodyBytes;
   } else {
-    throw Exception('Failed失敗したよごみが');
+    throw Exception('Failed');
   }
   Uint8List imageBytes = await loadImageFromNetwork('https://img.gamewith.jp/img/6ed5f1964573e9f4a15b4ca90eb4e3fe.jpg');
   @override

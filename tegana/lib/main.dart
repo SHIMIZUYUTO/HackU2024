@@ -12,10 +12,7 @@ class Player {
   String name;
   int score;
 
-  Player({
-    required this.name,
-    this.score = 0
-  });
+  Player({required this.name, this.score = 0});
 }
 
 // Cardsクラス
@@ -26,9 +23,9 @@ class Cards {
   Uint8List? E_Image;
 
   Cards({
-    required this.Y_Reading, 
-    required this.Y_Image, 
-    required this.E_Org, 
+    required this.Y_Reading,
+    required this.Y_Image,
+    required this.E_Org,
     required this.E_Image,
   });
 }
@@ -45,7 +42,8 @@ class MyApp extends StatelessWidget {
       routes: <String, WidgetBuilder>{
         '/home': (BuildContext context) => MainPage(),
         '/testPhoto': (BuildContext context) => Photo(),
-        '/testYomifuda': (BuildContext context) => Yomifuda()
+        '/testYomifuda': (BuildContext context) => Yomifuda(),
+        '/loasImage': (BuildContext context) => loadImageFromNetwork(),
       },
     );
   }

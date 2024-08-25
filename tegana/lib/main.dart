@@ -4,6 +4,7 @@ import 'dart:typed_data'; // Uint8Listに必要
 import 'MainPage.dart';
 import 'Photo.dart';
 import 'Yomifuda.dart';
+import 'view.dart';
 // import 'crop_your_image.dart';
 
 void main() => runApp(MyApp());
@@ -43,7 +44,7 @@ class MyApp extends StatelessWidget {
       routes: <String, WidgetBuilder>{
         '/home': (BuildContext context) => MainPage(),
         '/testPhoto': (BuildContext context) => Photo(),
-        '/testYomifuda': (BuildContext context) => Yomifuda(),
+        '/viewCards': (BuildContext context) => CardListPage(),
       },
     );
   }

@@ -54,7 +54,7 @@ class MainPage extends StatelessWidget {
               const SizedBox(height: 80),
               ElevatedButton(
                   onPressed: () =>
-                      Navigator.of(context).pushNamed("/testYomifuda"),
+                      Navigator.of(context).pushNamed("/viewCards"),
                   child: const Text('札を見る',
                       style: TextStyle(fontSize: 20, color: Colors.black87)),
                   style: ElevatedButton.styleFrom(

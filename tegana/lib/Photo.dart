@@ -137,9 +137,10 @@ class _MyHomePageState extends State<MyHomePage> {
                     Navigator.of(context).pop();
                   },
                   style: ElevatedButton.styleFrom(
-                    backgroundColor: Colors.black,
-                    foregroundColor: Colors.white,
-                    shape: const CircleBorder(),
+                    backgroundColor: Colors.white,
+                    foregroundColor: Colors.black,
+                    shape: const StadiumBorder(),
+                    side: const BorderSide(color: Colors.green),
                     padding: const EdgeInsets.all(20),
                   ),
                   child: const Text('戻る'),

@@ -7,6 +7,7 @@ class MainPage extends StatelessWidget {
   @override
   Widget build(BuildContext context) {
     return Scaffold(
+      backgroundColor: Colors.lightGreen,
       appBar: AppBar(
         title: Text(
           'かるためーかー（仮）',
@@ -24,6 +25,7 @@ class MainPage extends StatelessWidget {
               Expanded(
                 child:Image.asset('images/icon.png'),
               ),
+              const SizedBox(height: 30),
               ElevatedButton(
                   onPressed: () =>
                       Navigator.of(context).pushNamed("/testPhoto"),
@@ -33,7 +35,7 @@ class MainPage extends StatelessWidget {
                     backgroundColor: Colors.lightGreen[200],
                     minimumSize: const Size(200, 50),
                     shape: RoundedRectangleBorder(
-                      borderRadius: BorderRadius.circular(10),
+                      borderRadius: BorderRadius.circular(20),
                     ),
                   )),
               const SizedBox(height: 80),
@@ -46,7 +48,7 @@ class MainPage extends StatelessWidget {
                     backgroundColor: Colors.yellow[200],
                     minimumSize: const Size(200, 50),
                     shape: RoundedRectangleBorder(
-                      borderRadius: BorderRadius.circular(10),
+                      borderRadius: BorderRadius.circular(20),
                     ),
                   )),
               const SizedBox(height: 80),
@@ -59,7 +61,7 @@ class MainPage extends StatelessWidget {
                     backgroundColor: Colors.lightBlue[200],
                     minimumSize: const Size(200, 50),
                     shape: RoundedRectangleBorder(
-                      borderRadius: BorderRadius.circular(10),
+                      borderRadius: BorderRadius.circular(20),
                     ),
                   )),
               const SizedBox(height: 80),

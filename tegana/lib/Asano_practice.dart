@@ -34,29 +34,36 @@ class _ChangeFormState extends State<ChangeForm> {
   }
 
   Widget build(BuildContext context) {
-    return Container(
-      padding: const EdgeInsets.all(50.0),
-      child: Column(
-        children: <Widget>[
-          Text(
-            "$_count",
-            style: TextStyle(
-              color:Colors.blueAccent,
-              fontSize: 30.0,
-              fontWeight: FontWeight.w500
+    return Scaffold(
+      backgroundColor: Colors.white60,
+      appBar: AppBar(
+        title: Text('ImageButtonRippleDemo'),
+      ),
+      body: Center(
+        child: Container(
+          width: 120,
+          height: 120,
+          decoration: BoxDecoration(
+            color: Colors.white,
+            borderRadius: BorderRadius.circular(8.0),
+            image: DecorationImage(
+              image: AssetImage(
+                'images/icon.png',
+              ),
+              fit: BoxFit.cover,
             ),
           ),
-          TextButton(
-              onPressed: _handlePressed,
-               child: Text("クリック可"),
-               style: TextButton.styleFrom(
-                 textStyle: const TextStyle(fontSize: 30),
-                 foregroundColor: Colors.blue,
-                 fixedSize: Size(200, 200),
-                 alignment: Alignment.topCenter,
-          )),
-        ],
-      )
+          child: Material(
+            color: Colors.transparent,
+            child: InkWell(
+              borderRadius: BorderRadius.circular(8.0),
+              onTap: () { 
+                // 押下時の処理を記述
+              },
+            ),
+          ),
+        ),
+      ),
     );
   }
 }

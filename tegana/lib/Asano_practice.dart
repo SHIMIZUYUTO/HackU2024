@@ -1,69 +1,84 @@
+import 'dart:io';
 import 'package:flutter/material.dart';
-import 'package:flutter/widgets.dart';
+import 'package:image_picker/image_picker.dart';
 
-void main() => runApp(MyApp());
+void main() {
+  runApp(MyApp());
+}
 
 class MyApp extends StatelessWidget {
   @override
   Widget build(BuildContext context) {
     return MaterialApp(
-      title: 'Form',
       home: Scaffold(
         appBar: AppBar(
-          title: Text('Form'),
+          title: Text('画像選択と表示'),
         ),
-        body: Center(
-          child: ChangeForm(),
-        ),
+        body: ImagePickerExample(),
       ),
     );
   }
 }
 
-class ChangeForm extends StatefulWidget {
+class ImagePickerExample extends StatefulWidget {
   @override
-  _ChangeFormState createState() => _ChangeFormState();
+  _ImagePickerExampleState createState() => _ImagePickerExampleState();
 }
 
-class _ChangeFormState extends State<ChangeForm> {
-  int _count = 0;
+class _ImagePickerExampleState extends State<ImagePickerExample> {
+  File? _image;  // 選択した画像を保存する変数
+  final ImagePicker _picker = ImagePicker();
 
-  void _handlePressed() {
-    setState(() {
-      _count++;
-    });
+  Future<void> _pickImage() async {
+    final XFile? pickedFile = await _picker.pickImage(source: ImageSource.gallery);
+
+    if (pickedFile != null) {
+      setState(() {
+        _image = File(pickedFile.path);
+      });
+    }
   }
 
+  @override
   Widget build(BuildContext context) {
-    return Scaffold(
-      body: Row(
+    return Center(
+      child: Column(
+        mainAxisAlignment: MainAxisAlignment.center,
         children: [
-          Expanded(
-            child: Stack(
-              alignment: AlignmentDirectional.topEnd,
-              fit: StackFit.passthrough,
-              children: <Widget>[
-                Container(
-                  width: 200,
-                  height: 200,
-                  color: Colors.red,
-                ),
-                Positioned(
-                  left: 1000,
-                  top: 50,
-                  child: Container(
-                    width: 60,
-                    height: 60,
-                    color: Colors.blue,
-                    child: Text(
-                      'き',
-                      style: TextStyle(color: Colors.white, fontSize: 50),
-                      textAlign: TextAlign.center,
-                    )
-                  ),
-                ),
-              ],
-            ),
+          _image != null
+              ? Stack(
+                  children: [
+                    Image.file(
+                      _image!,
+                      width: 300,
+                      height: 300,
+                      fit: BoxFit.cover,
+                    ),
+                    Positioned(
+                      right: 10,
+                      top: 10,
+                      child: Container(
+                        width: 50,
+                        height: 50,
+                        decoration: BoxDecoration(
+                          color: Colors.red,
+                          shape: BoxShape.circle,
+                        ),
+                        child: Center(
+                          child: Text(
+                            '丸',
+                            style: TextStyle(color: Colors.white),
+                          ),
+                        ),
+                      ),
+                    ),
+                  ],
+                )
+              : Text('画像が選択されていません'),
+          SizedBox(height: 20),
+          ElevatedButton(
+            onPressed: _pickImage,
+            child: Text('画像を選択'),
           ),
         ],
       ),

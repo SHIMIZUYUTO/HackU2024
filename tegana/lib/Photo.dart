@@ -25,9 +25,11 @@ class MyHomePage extends StatefulWidget {
 class _MyHomePageState extends State<MyHomePage> {
   Uint8List? _imageBytes;
   Uint8List? _croppedImageBytes;
+  
   final picker = ImagePicker();
   final _cropController = CropController();
   final TextEditingController _textController = TextEditingController();
+  final _formKey = GlobalKey<FormState>();  // フォームのキーを追加
 
   Future<void> _getImage() async {
     try {
@@ -94,29 +96,31 @@ class _MyHomePageState extends State<MyHomePage> {
   }
 
   void _registerCard() {
-    if (_croppedImageBytes != null && _textController.text.isNotEmpty) {
-      final newCard = Cards(
-        Y_Reading: _textController.text,
-        Y_Image: null,  // 今回は使用しない
-        E_Org: _croppedImageBytes,
-        E_Image: null,  // 今回は使用しない
-      );
-      setState(() {
-        cardList.add(newCard);
-      });
-      ScaffoldMessenger.of(context).showSnackBar(
-        SnackBar(content: Text('カードが登録されました')),
-      );
-      // 入力をクリア
-      _textController.clear();
-      setState(() {
-        _croppedImageBytes = null;
-        _imageBytes = null;
-      });
-    } else {
-      ScaffoldMessenger.of(context).showSnackBar(
-        SnackBar(content: Text('画像と読み札の両方を入力してください')),
-      );
+    if (_formKey.currentState!.validate()) {
+      if (_croppedImageBytes != null && _textController.text.isNotEmpty) {
+        final newCard = Cards(
+          Y_Reading: _textController.text,
+          Y_Image: null,  // 今回は使用しない
+          E_Org: _croppedImageBytes,
+          E_Image: null,  // 今回は使用しない
+        );
+        setState(() {
+          cardList.add(newCard);
+        });
+        ScaffoldMessenger.of(context).showSnackBar(
+          SnackBar(content: Text('カードが登録されました')),
+        );
+        // 入力をクリア
+        _textController.clear();
+        setState(() {
+          _croppedImageBytes = null;
+          _imageBytes = null;
+        });
+      } else {
+        ScaffoldMessenger.of(context).showSnackBar(
+          SnackBar(content: Text('画像と読み札の両方を入力してください')),
+        );
+      }
     }
   }
 
@@ -182,21 +186,33 @@ class _MyHomePageState extends State<MyHomePage> {
             Container(
               color: Colors.green,
               padding: const EdgeInsets.all(20),
-              child: Column(
-                children: [
-                  ElevatedButton(
-                    onPressed: () {
-                      print('読み札ボタンが押されました');
-                    },
-                    child: const Text('読札'),
+              child: Form(  // Formウィジェットでラップ
+                key: _formKey,  // フォームのキーを指定
+                  child: Column(
+                    children: [
+                      ElevatedButton(
+                        onPressed: () {
+                          print('読み札ボタンが押されました');
+                        },
+                        child: const Text('読札'),
+                      ),
+                      TextFormField(  // TextFieldをTextFormFieldに変更
+                          controller: _textController,
+                          decoration: InputDecoration(
+                            hintText: 'ここに入力',
+                          ),
+                          validator: (value) {
+                            if (value == null || value.isEmpty) {    // 入力欄が空欄だった場合
+                              return 'テキストが入力されていません'; // エラーメッセージ
+                            }
+                            if(!RegExp(r'^[ぁ-ゖァ-ヶー]*$').hasMatch(value)){     // ひらがな、カタカナ以外が入力されている場合
+                              return 'ひらがなまたはカタカナを入力してください';  // エラーメッセージ 
+                            }
+                            return null; // エラーがない場合はnullを返す
+                          },
+                        ),
+                    ],
                   ),
-                  TextField(
-                    controller: _textController,
-                    decoration: InputDecoration(
-                      hintText: 'ここに入力',
-                    ),
-                  ),
-                ],
               ),
             ),
 

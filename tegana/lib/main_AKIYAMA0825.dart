@@ -13,6 +13,22 @@ class Player {
   int score;
 
   Player({required this.name, this.score = 0});
+
+  void setname(String newname) {
+    name = newname;
+  }
+
+  void setscore(int newscore) {
+    score = newscore;
+  }
+
+  String getname() {
+    return name;
+  }
+
+  int getscore() {
+    return score;
+  }
 }
 
 // Cardクラス
@@ -48,6 +64,7 @@ class MyApp extends StatelessWidget {
         '/inTexts3': (BuildContext context) => new inTexts3(),
         '/inTexts4': (BuildContext context) => new inTexts4(),
         'PL': (BuildContext context) => new PL(),
+        '/ct': (BuildContext context) => new ct(),
       },
     );
   }
@@ -394,10 +411,47 @@ class _ChangeFormState extends State<ChangeForm> {
                   fontSize: 30.0,
                   fontWeight: FontWeight.w500),
             ),
+            new TextField(
+              enabled: true,
+              // 入力数
+              maxLength: 10,
+
+              style: TextStyle(color: Colors.red),
+              obscureText: false,
+              maxLines: 1,
+              //パスワード
+              onChanged: _handleText,
+            ),
             SizedBox(height: 20),
             ElevatedButton(
-                onPressed: () => playerList.add(_text1), child: new Text('確定')),
+                onPressed: () {
+                  playerList.add(_text1);
+                  Navigator.of(context).pushNamed("/ct");
+                },
+                child: new Text('確定'))
           ],
         ));
+  }
+}
+
+class ct extends StatefulWidget {
+  String text1 = "";
+  @override
+  _Ctest createState() => _Ctest();
+}
+
+class _Ctest extends State<ct> {
+  Widget build(BuildContext context) {
+    return Container(
+        padding: const EdgeInsets.all(50.0),
+        child: Column(children: <Widget>[
+          Text(
+            playerList[0],
+            style: TextStyle(
+                color: Colors.blueAccent,
+                fontSize: 30.0,
+                fontWeight: FontWeight.w500),
+          )
+        ]));
   }
 }

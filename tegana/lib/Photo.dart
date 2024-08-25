@@ -167,16 +167,19 @@ class _MyHomePageState extends State<MyHomePage> {
                 borderRadius: BorderRadius.circular(8.0),
                 onTap: _getImage,
                 child: Container(
-                  color: Colors.red,
-                  margin: const EdgeInsets.all(20),
-                  child: _croppedImageBytes != null
+                  decoration: BoxDecoration(
+                    border: Border.all(width: 10),
+                    color: Colors.red,
+                  ),
+                    margin: const EdgeInsets.all(20),
+                    child: _croppedImageBytes != null
                       ? Image.memory(_croppedImageBytes!)
                       : _imageBytes != null
                           ? Image.memory(_imageBytes!)
                           : const Center(
                               child: Text(
                                 '画像を選択',
-                                style: TextStyle(color: Colors.white, fontSize: 20),
+                                style: TextStyle(color: Colors.white, fontSize: 50),
                               ),
                             ),
                 ),

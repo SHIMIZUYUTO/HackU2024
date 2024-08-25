@@ -306,17 +306,17 @@ class _PLHomePage extends State<PLHomePage> {
           ),
           SizedBox(height: 30),
           ElevatedButton(
-            onPressed: () => Navigator.of(context).pushNamed("/inTexts2"),
+            onPressed: () => Navigator.of(context).pushNamed("/inTexts1"),
             child: new Text('2'),
           ),
           SizedBox(height: 30),
           ElevatedButton(
-            onPressed: () => Navigator.of(context).pushNamed("/inTexts3"),
+            onPressed: () => Navigator.of(context).pushNamed("/inTexts1"),
             child: new Text('3'),
           ),
           SizedBox(height: 30),
           ElevatedButton(
-            onPressed: () => Navigator.of(context).pushNamed("/inTexts4"),
+            onPressed: () => Navigator.of(context).pushNamed("/inTexts1"),
             child: new Text('4'),
           )
         ],

@@ -5,6 +5,7 @@ import 'MainPage.dart';
 import 'Photo.dart';
 import 'Yomifuda.dart';
 import 'view.dart';
+import 'play.dart';
 // import 'crop_your_image.dart';
 
 void main() => runApp(MyApp());
@@ -45,6 +46,9 @@ class MyApp extends StatelessWidget {
         '/home': (BuildContext context) => MainPage(),
         '/testPhoto': (BuildContext context) => Photo(),
         '/viewCards': (BuildContext context) => CardListPage(),
+        '/inTexts1': (BuildContext context) => new inTexts1(),
+        'PL': (BuildContext context) => new PL(),
+        '/ct': (BuildContext context) => new ct(),
       },
     );
   }

@@ -9,11 +9,8 @@ class MainPage extends StatelessWidget {
     return Scaffold(
       backgroundColor: Colors.lightGreen,
       appBar: AppBar(
-        title: Text(
-          'かるためーかー（仮）',
-          style: TextStyle(
-            fontSize: 32,
-            fontWeight: FontWeight.bold)),
+        title: Text('かるためーかー（仮）',
+            style: TextStyle(fontSize: 32, fontWeight: FontWeight.bold)),
         centerTitle: true,
       ),
       body: Container(
@@ -23,12 +20,11 @@ class MainPage extends StatelessWidget {
             mainAxisAlignment: MainAxisAlignment.center,
             children: <Widget>[
               Expanded(
-                child:Image.asset('images/icon.png'),
+                child: Image.asset('images/icon.png'),
               ),
               const SizedBox(height: 30),
               ElevatedButton(
-                  onPressed: () =>
-                      Navigator.of(context).pushNamed("/testPhoto"),
+                  onPressed: () => Navigator.of(context).pushNamed("PL"),
                   child: const Text('遊ぶ',
                       style: TextStyle(fontSize: 20, color: Colors.black87)),
                   style: ElevatedButton.styleFrom(

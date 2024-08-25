@@ -8,7 +8,11 @@ class MainPage extends StatelessWidget {
   Widget build(BuildContext context) {
     return Scaffold(
       appBar: AppBar(
-        title: Text('かるためーかー（仮）'),
+        title: Text(
+          'かるためーかー（仮）',
+          style: TextStyle(
+            fontSize: 32,
+            fontWeight: FontWeight.bold)),
         centerTitle: true,
       ),
       body: Container(
@@ -17,6 +21,9 @@ class MainPage extends StatelessWidget {
           child: Column(
             mainAxisAlignment: MainAxisAlignment.center,
             children: <Widget>[
+              Expanded(
+                child:Image.asset('images/icon.png'),
+              ),
               ElevatedButton(
                   onPressed: () =>
                       Navigator.of(context).pushNamed("/testPhoto"),

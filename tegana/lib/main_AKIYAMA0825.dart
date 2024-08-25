@@ -49,6 +49,7 @@ class Card {
 // リストの宣言
 List<String> playerList = [];
 List<Card> cardList = [];
+int human = 0;
 
 class MyApp extends StatelessWidget {
   @override
@@ -60,9 +61,6 @@ class MyApp extends StatelessWidget {
         '/testPhoto': (BuildContext context) => new Photo(),
         '/testYomifuda': (BuildContext context) => new Yomifuda(),
         '/inTexts1': (BuildContext context) => new inTexts1(),
-        '/inTexts2': (BuildContext context) => new inTexts2(),
-        '/inTexts3': (BuildContext context) => new inTexts3(),
-        '/inTexts4': (BuildContext context) => new inTexts4(),
         'PL': (BuildContext context) => new PL(),
         '/ct': (BuildContext context) => new ct(),
       },
@@ -301,22 +299,34 @@ class _PLHomePage extends State<PLHomePage> {
         children: <Widget>[
           SizedBox(height: 30),
           ElevatedButton(
-            onPressed: () => Navigator.of(context).pushNamed("/inTexts1"),
+            onPressed: () {
+              human = 1;
+              Navigator.of(context).pushNamed("/inTexts1");
+            },
             child: new Text('1'),
           ),
           SizedBox(height: 30),
           ElevatedButton(
-            onPressed: () => Navigator.of(context).pushNamed("/inTexts1"),
+            onPressed: () {
+              human = 2;
+              Navigator.of(context).pushNamed("/inTexts1");
+            },
             child: new Text('2'),
           ),
           SizedBox(height: 30),
           ElevatedButton(
-            onPressed: () => Navigator.of(context).pushNamed("/inTexts1"),
+            onPressed: () {
+              human = 3;
+              Navigator.of(context).pushNamed("/inTexts1");
+            },
             child: new Text('3'),
           ),
           SizedBox(height: 30),
           ElevatedButton(
-            onPressed: () => Navigator.of(context).pushNamed("/inTexts1"),
+            onPressed: () {
+              human = 4;
+              Navigator.of(context).pushNamed("/inTexts1");
+            },
             child: new Text('4'),
           )
         ],
@@ -329,59 +339,13 @@ class _PLHomePage extends State<PLHomePage> {
 //人数を頑張って渡そうとした
 class inTexts1 extends StatelessWidget {
   /*2*/
-  final int human = 1;
   @override
   Widget build(BuildContext context) {
     /*3*/
     return Scaffold(
         /*4*/
         appBar: AppBar(
-          title: Text('Startup Name Generator'),
-        ),
-        body: ChangeForm());
-  }
-}
-
-class inTexts2 extends StatelessWidget {
-  /*2*/
-  final int human = 2;
-  @override
-  Widget build(BuildContext context) {
-    /*3*/
-    return Scaffold(
-        /*4*/
-        appBar: AppBar(
-          title: Text('Startup Name Generator'),
-        ),
-        body: ChangeForm());
-  }
-}
-
-class inTexts3 extends StatelessWidget {
-  /*2*/
-  final int human = 3;
-  @override
-  Widget build(BuildContext context) {
-    /*3*/
-    return Scaffold(
-        /*4*/
-        appBar: AppBar(
-          title: Text('Startup Name Generator'),
-        ),
-        body: ChangeForm());
-  }
-}
-
-class inTexts4 extends StatelessWidget {
-  /*2*/
-  final int human = 4;
-  @override
-  Widget build(BuildContext context) {
-    /*3*/
-    return Scaffold(
-        /*4*/
-        appBar: AppBar(
-          title: Text('Startup Name Generator'),
+          title: Text("Startup Name Generator"),
         ),
         body: ChangeForm());
   }
@@ -392,6 +356,8 @@ class ChangeForm extends StatefulWidget {
   @override
   _ChangeFormState createState() => _ChangeFormState();
 }
+
+int count = 0;
 
 class _ChangeFormState extends State<ChangeForm> {
   String _text1 = '';
@@ -429,7 +395,12 @@ class _ChangeFormState extends State<ChangeForm> {
             ElevatedButton(
                 onPressed: () {
                   playerList.add(_text1);
-                  Navigator.of(context).pushNamed("/ct");
+                  count++;
+                  if (human > count) {
+                    Navigator.of(context).pushNamed("/inTexts1");
+                  } else {
+                    Navigator.of(context).pushNamed("/ct");
+                  }
                 },
                 child: new Text('確定'))
           ],
@@ -444,17 +415,33 @@ class ct extends StatefulWidget {
   _Ctest createState() => _Ctest();
 }
 
+int cunt = 0;
+
 class _Ctest extends State<ct> {
   Widget build(BuildContext context) {
     return Container(
         padding: const EdgeInsets.all(50.0),
         child: Column(children: <Widget>[
           Text(
-            playerList[0],
+            playerList[cunt],
             style: TextStyle(
                 color: Colors.blueAccent,
                 fontSize: 30.0,
                 fontWeight: FontWeight.w500),
+          ),
+          SizedBox(height: 30),
+          ElevatedButton(
+            onPressed: () {
+              cunt++;
+              if (human > cunt) {
+                Navigator.of(context).pushNamed("/ct");
+              } else {
+                for (int i = 0; i < human * 2; i++) {
+                  Navigator.of(context).pop();
+                }
+              }
+            },
+            child: new Text('次の人'),
           )
         ]));
   }

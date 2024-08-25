@@ -159,6 +159,8 @@ class _MyHomePageState extends State<MyHomePage> {
             ),
             Expanded(
               child: GestureDetector(
+                child: InkWell(
+                borderRadius: BorderRadius.circular(8.0),
                 onTap: _getImage,
                 child: Container(
                   color: Colors.red,
@@ -175,6 +177,7 @@ class _MyHomePageState extends State<MyHomePage> {
                             ),
                 ),
               ),
+            ),
             ),
             Container(
               color: Colors.green,

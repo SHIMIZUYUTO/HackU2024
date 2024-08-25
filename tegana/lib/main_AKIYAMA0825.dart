@@ -290,6 +290,7 @@ class PLHomePage extends StatefulWidget {
   _PLHomePage createState() => _PLHomePage();
 }
 
+//人数選択
 class _PLHomePage extends State<PLHomePage> {
   int sor = 0;
   @override
@@ -323,8 +324,9 @@ class _PLHomePage extends State<PLHomePage> {
     );
   }
 }
-//こっからテキストボックス
 
+//こっからテキストボックス
+//人数を頑張って渡そうとした
 class inTexts1 extends StatelessWidget {
   /*2*/
   final int human = 1;
@@ -385,6 +387,7 @@ class inTexts4 extends StatelessWidget {
   }
 }
 
+//テキストボックス名前登録の画面
 class ChangeForm extends StatefulWidget {
   @override
   _ChangeFormState createState() => _ChangeFormState();
@@ -434,6 +437,7 @@ class _ChangeFormState extends State<ChangeForm> {
   }
 }
 
+//名前登録のチェック用
 class ct extends StatefulWidget {
   String text1 = "";
   @override

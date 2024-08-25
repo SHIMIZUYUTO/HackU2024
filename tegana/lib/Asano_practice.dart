@@ -1,4 +1,5 @@
 import 'package:flutter/material.dart';
+import 'package:flutter/widgets.dart';
 
 void main() => runApp(MyApp());
 
@@ -35,34 +36,36 @@ class _ChangeFormState extends State<ChangeForm> {
 
   Widget build(BuildContext context) {
     return Scaffold(
-      backgroundColor: Colors.white60,
-      appBar: AppBar(
-        title: Text('ImageButtonRippleDemo'),
-      ),
-      body: Center(
-        child: Container(
-          width: 120,
-          height: 120,
-          decoration: BoxDecoration(
-            color: Colors.white,
-            borderRadius: BorderRadius.circular(8.0),
-            image: DecorationImage(
-              image: AssetImage(
-                'images/icon.png',
-              ),
-              fit: BoxFit.cover,
+      body: Row(
+        children: [
+          Expanded(
+            child: Stack(
+              alignment: AlignmentDirectional.topEnd,
+              fit: StackFit.passthrough,
+              children: <Widget>[
+                Container(
+                  width: 200,
+                  height: 200,
+                  color: Colors.red,
+                ),
+                Positioned(
+                  left: 1000,
+                  top: 50,
+                  child: Container(
+                    width: 60,
+                    height: 60,
+                    color: Colors.blue,
+                    child: Text(
+                      'き',
+                      style: TextStyle(color: Colors.white, fontSize: 50),
+                      textAlign: TextAlign.center,
+                    )
+                  ),
+                ),
+              ],
             ),
           ),
-          child: Material(
-            color: Colors.transparent,
-            child: InkWell(
-              borderRadius: BorderRadius.circular(8.0),
-              onTap: () { 
-                // 押下時の処理を記述
-              },
-            ),
-          ),
-        ),
+        ],
       ),
     );
   }

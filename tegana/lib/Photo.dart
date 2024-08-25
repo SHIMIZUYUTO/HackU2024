@@ -25,6 +25,7 @@ class MyHomePage extends StatefulWidget {
 class _MyHomePageState extends State<MyHomePage> {
   Uint8List? _imageBytes;
   Uint8List? _croppedImageBytes;
+  
   final picker = ImagePicker();
   final _cropController = CropController();
   final TextEditingController _textController = TextEditingController();

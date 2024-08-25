@@ -1,25 +1,8 @@
 import 'package:flutter/material.dart';
 import 'dart:typed_data';
+import 'main.dart';
 import 'package:image_picker/image_picker.dart';
 import 'package:crop_your_image/crop_your_image.dart';
-
-// Cardsクラス
-class Cards {
-  String Y_Reading;
-  Uint8List? Y_Image;
-  Uint8List? E_Org;
-  Uint8List? E_Image;
-
-  Cards({
-    required this.Y_Reading, 
-    required this.Y_Image, 
-    required this.E_Org, 
-    required this.E_Image,
-  });
-}
-
-// リストの宣言
-List<Cards> cardList = [];
 
 class Photo extends StatelessWidget {
   const Photo({Key? key}) : super(key: key);

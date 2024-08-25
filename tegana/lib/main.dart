@@ -4,7 +4,7 @@ import 'dart:typed_data'; // Uint8Listに必要
 import 'MainPage.dart';
 import 'Photo.dart';
 import 'Yomifuda.dart';
-import 'crop_your_image.dart';
+// import 'crop_your_image.dart';
 
 void main() => runApp(MyApp());
 

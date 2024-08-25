@@ -1,15 +1,46 @@
 import 'package:flutter/material.dart';
-import 'main.dart'; 
+import 'package:flutter_tts/flutter_tts.dart';
+import 'main.dart';
 
-class CardListPage extends StatelessWidget {
+class CardListPage extends StatefulWidget {
+  @override
+  _CardListPageState createState() => _CardListPageState();
+}
+
+class _CardListPageState extends State<CardListPage> {
+  final FlutterTts flutterTts = FlutterTts();
+
+  @override
+  void initState() {
+    super.initState();
+    initTts();
+  }
+
+  Future<void> initTts() async {
+    await flutterTts.setLanguage("ja-JP");
+    await flutterTts.setSpeechRate(0.5);
+    await flutterTts.setVolume(1.0);
+    await flutterTts.setPitch(1.0);
+  }
+
+  Future<void> speak(String text) async {
+    await flutterTts.speak(text);
+  }
+
+  @override
+  void dispose() {
+    flutterTts.stop();
+    super.dispose();
+  }
+
   @override
   Widget build(BuildContext context) {
     return Scaffold(
       appBar: AppBar(
-        title: Text('読札・絵札リスト'),
+        title: Text('カードリスト'),
       ),
       body: cardList.isEmpty
-          ? Center(child: Text('札がありません'))
+          ? Center(child: Text('カードがありません'))
           : ListView.builder(
               itemCount: cardList.length,
               itemBuilder: (context, index) {
@@ -25,6 +56,7 @@ class CardListPage extends StatelessWidget {
                         : Icon(Icons.image_not_supported),
                     title: Text(cardList[index].Y_Reading),
                     onTap: () {
+                      speak(cardList[index].Y_Reading);
                       showDialog(
                         context: context,
                         builder: (BuildContext context) {
@@ -38,6 +70,12 @@ class CardListPage extends StatelessWidget {
                                 child: Text('閉じる'),
                                 onPressed: () {
                                   Navigator.of(context).pop();
+                                },
+                              ),
+                              TextButton(
+                                child: Text('読み上げ'),
+                                onPressed: () {
+                                  speak(cardList[index].Y_Reading);
                                 },
                               ),
                             ],

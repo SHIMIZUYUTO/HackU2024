@@ -84,7 +84,7 @@ class _TextInputWidgetState extends State<TextInputWidget> {
     );
   }
   @override
-  void dispose() {
+  void dispose() {    //メモリリークを防ぐためにオブジェクトが占有しているリソースを解放する
     _controller.dispose();
     super.dispose();
   }

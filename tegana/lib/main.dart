@@ -4,6 +4,7 @@ import 'dart:typed_data'; // Uint8Listに必要
 import 'MainPage.dart';
 import 'Photo.dart';
 import 'Yomifuda.dart';
+import 'crop_your_image.dart';
 
 void main() => runApp(MyApp());
 
@@ -43,7 +44,7 @@ class MyApp extends StatelessWidget {
         '/home': (BuildContext context) => MainPage(),
         '/testPhoto': (BuildContext context) => Photo(),
         '/testYomifuda': (BuildContext context) => Yomifuda(),
-        '/loasImage': (BuildContext context) => loadImageFromNetwork(),
+        '/loasImage': (BuildContext context) => loadimage(),
       },
     );
   }

@@ -1,8 +1,25 @@
 import 'package:flutter/material.dart';
 import 'dart:typed_data';
 import 'package:image_picker/image_picker.dart';
-import 'package:flutter_image_compress/flutter_image_compress.dart';
 import 'package:crop_your_image/crop_your_image.dart';
+
+// Cardsクラス
+class Cards {
+  String Y_Reading;
+  Uint8List? Y_Image;
+  Uint8List? E_Org;
+  Uint8List? E_Image;
+
+  Cards({
+    required this.Y_Reading, 
+    required this.Y_Image, 
+    required this.E_Org, 
+    required this.E_Image,
+  });
+}
+
+// リストの宣言
+List<Cards> cardList = [];
 
 class Photo extends StatelessWidget {
   const Photo({Key? key}) : super(key: key);
@@ -27,19 +44,27 @@ class _MyHomePageState extends State<MyHomePage> {
   Uint8List? _croppedImageBytes;
   final picker = ImagePicker();
   final _cropController = CropController();
+  final TextEditingController _textController = TextEditingController();
 
   Future<void> _getImage() async {
-    final XFile? pickedFile = await picker.pickImage(source: ImageSource.gallery);
+    try {
+      final XFile? pickedFile = await picker.pickImage(source: ImageSource.gallery);
 
-    if (pickedFile != null) {
-      final bytes = await pickedFile.readAsBytes();
-      setState(() {
-        _imageBytes = Uint8List.fromList(bytes);
-        _croppedImageBytes = null; // リセット
-      });
-      _showCropDialog();
-    } else {
-      print('No image selected.');
+      if (pickedFile != null) {
+        final bytes = await pickedFile.readAsBytes();
+        setState(() {
+          _imageBytes = Uint8List.fromList(bytes);
+          _croppedImageBytes = null; // リセット
+        });
+        _showCropDialog();
+      } else {
+        print('No image selected.');
+      }
+    } catch (e) {
+      print('Error picking image: $e');
+      ScaffoldMessenger.of(context).showSnackBar(
+        SnackBar(content: Text('画像の選択中にエラーが発生しました: $e')),
+      );
     }
   }
 
@@ -55,30 +80,13 @@ class _MyHomePageState extends State<MyHomePage> {
                   image: _imageBytes!,
                   controller: _cropController,
                   aspectRatio: 2/3,
-                  onStatusChanged: (status) {
-                    if (status == CropStatus.ready) {
-                      // クロップの準備ができたときの処理
-                      print('Crop is ready');
-                    }
-                  },
-                  onCropped: (croppedData) async {
-                    try {
-                      final compressedData = await FlutterImageCompress.compressWithList(
-                        croppedData,
-                        minWidth: 200,
-                        minHeight: 300,
-                      );
-                      setState(() {
-                        _croppedImageBytes = Uint8List.fromList(compressedData);
-                      });
-                      Navigator.of(context).pop();
-                    } catch (e,stackTrace) {
-                      print('Error during image processing: $e');
-                      print('Stack trace: $stackTrace');
-                      ScaffoldMessenger.of(context).showSnackBar(
-                        SnackBar(content: Text('画像の処理中にエラーが発生しました')),
-                      );
-                    }
+                  onStatusChanged: (status) => print(status),
+                  onCropped: (croppedData) {
+                    if (!mounted) return;
+                    setState(() {
+                      _croppedImageBytes = croppedData;
+                    });
+                    Navigator.of(context).pop();
                   },
                 ),
               ),
@@ -86,11 +94,10 @@ class _MyHomePageState extends State<MyHomePage> {
                 onPressed: () {
                   try {
                     _cropController.crop();
-                  } catch (e,stackTrace) {
+                  } catch (e) {
                     print('Error during cropping: $e');
-                    print('Stack trace: $stackTrace');
                     ScaffoldMessenger.of(context).showSnackBar(
-                      SnackBar(content: Text('画像のクロップ中にエラーが発生しました')),
+                      SnackBar(content: Text('画像のクロップ中にエラーが発生しました: $e')),
                     );
                   }
                 },
@@ -103,6 +110,33 @@ class _MyHomePageState extends State<MyHomePage> {
     );
   }
 
+  void _registerCard() {
+    if (_croppedImageBytes != null && _textController.text.isNotEmpty) {
+      final newCard = Cards(
+        Y_Reading: _textController.text,
+        Y_Image: null,  // 今回は使用しない
+        E_Org: _croppedImageBytes,
+        E_Image: null,  // 今回は使用しない
+      );
+      setState(() {
+        cardList.add(newCard);
+      });
+      ScaffoldMessenger.of(context).showSnackBar(
+        SnackBar(content: Text('カードが登録されました')),
+      );
+      // 入力をクリア
+      _textController.clear();
+      setState(() {
+        _croppedImageBytes = null;
+        _imageBytes = null;
+      });
+    } else {
+      ScaffoldMessenger.of(context).showSnackBar(
+        SnackBar(content: Text('画像と読み札の両方を入力してください')),
+      );
+    }
+  }
+
   @override
   Widget build(BuildContext context) {
     return Scaffold(
@@ -112,13 +146,12 @@ class _MyHomePageState extends State<MyHomePage> {
       body: Center(
         child: Column(
           children: <Widget>[
-            // 上部のボタン配置（戻る・登録）
             Row(
               mainAxisAlignment: MainAxisAlignment.spaceBetween,
               children: [
                 ElevatedButton(
                   onPressed: () {
-                    Navigator.of(context).pop(); // 戻るボタン
+                    Navigator.of(context).pop();
                   },
                   style: ElevatedButton.styleFrom(
                     backgroundColor: Colors.black,
@@ -129,10 +162,7 @@ class _MyHomePageState extends State<MyHomePage> {
                   child: const Text('戻る'),
                 ),
                 ElevatedButton(
-                  onPressed: () {
-                    // 登録ボタンのアクション
-                    print('登録ボタンが押されました');
-                  },
+                  onPressed: _registerCard,
                   style: ElevatedButton.styleFrom(
                     backgroundColor: Colors.blue,
                     foregroundColor: Colors.white,
@@ -143,7 +173,6 @@ class _MyHomePageState extends State<MyHomePage> {
                 ),
               ],
             ),
-            // 画像選択エリア
             Expanded(
               child: GestureDetector(
                 onTap: _getImage,
@@ -163,7 +192,6 @@ class _MyHomePageState extends State<MyHomePage> {
                 ),
               ),
             ),
-            // 下部の読み札とテキスト入力エリア
             Container(
               color: Colors.green,
               padding: const EdgeInsets.all(20),
@@ -171,12 +199,12 @@ class _MyHomePageState extends State<MyHomePage> {
                 children: [
                   ElevatedButton(
                     onPressed: () {
-                      // 読み札ボタンのアクション
                       print('読み札ボタンが押されました');
                     },
                     child: const Text('読札'),
                   ),
-                  const TextField(
+                  TextField(
+                    controller: _textController,
                     decoration: InputDecoration(
                       hintText: 'ここに入力',
                     ),

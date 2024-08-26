@@ -35,7 +35,7 @@ class _ImageCompositionScreenState extends State<ImageCompositionScreen> {
 
   Future<void> _loadImages() async {
     final image1 = await _loadImage('images/icon.png');
-    final image2 = await _loadImage('images/image3.png');
+    final image2 = await _loadImage('images/image4.png');
 
     setState(() {
       _image1 = image1;
@@ -87,7 +87,7 @@ class ImageComposerPainter extends CustomPainter {
       canvas.drawImageRect(
         image2!,
         Rect.fromLTWH(0, 0, image2!.width.toDouble(), image2!.height.toDouble()),
-        Rect.fromLTWH(0, 0, size.width, size.height),
+        Rect.fromLTWH((size.width - (image2!.width.toDouble() * 1.5)) / 2, (size.height - (image2!.height.toDouble() * 1.5)) / 2, image2!.width.toDouble(), image2!.height.toDouble()),
         Paint()..blendMode = BlendMode.overlay, // 画像の合成モードを指定
       );
     }

@@ -1,9 +1,11 @@
 import 'package:flutter/material.dart';
 
 List<String> playerList = [];
+int human = 0;
 
 //こっからテキストボックス
 //人数を頑張って渡そうとした
+//PL登録
 //PL登録
 class PL extends StatelessWidget {
   @override
@@ -31,22 +33,34 @@ class _PLHomePage extends State<PLHomePage> {
         children: <Widget>[
           SizedBox(height: 30),
           ElevatedButton(
-            onPressed: () => Navigator.of(context).pushNamed("/inTexts1"),
+            onPressed: () {
+              human = 1;
+              Navigator.of(context).pushNamed("/inTexts1");
+            },
             child: new Text('1'),
           ),
           SizedBox(height: 30),
           ElevatedButton(
-            onPressed: () => Navigator.of(context).pushNamed("/inTexts1"),
+            onPressed: () {
+              human = 2;
+              Navigator.of(context).pushNamed("/inTexts1");
+            },
             child: new Text('2'),
           ),
           SizedBox(height: 30),
           ElevatedButton(
-            onPressed: () => Navigator.of(context).pushNamed("/inTexts1"),
+            onPressed: () {
+              human = 3;
+              Navigator.of(context).pushNamed("/inTexts1");
+            },
             child: new Text('3'),
           ),
           SizedBox(height: 30),
           ElevatedButton(
-            onPressed: () => Navigator.of(context).pushNamed("/inTexts1"),
+            onPressed: () {
+              human = 4;
+              Navigator.of(context).pushNamed("/inTexts1");
+            },
             child: new Text('4'),
           )
         ],
@@ -55,16 +69,17 @@ class _PLHomePage extends State<PLHomePage> {
   }
 }
 
+//こっからテキストボックス
+//人数を頑張って渡そうとした
 class inTexts1 extends StatelessWidget {
   /*2*/
-  final int human = 1;
   @override
   Widget build(BuildContext context) {
     /*3*/
     return Scaffold(
         /*4*/
         appBar: AppBar(
-          title: Text('Startup Name Generator'),
+          title: Text("Startup Name Generator"),
         ),
         body: ChangeForm());
   }
@@ -75,6 +90,8 @@ class ChangeForm extends StatefulWidget {
   @override
   _ChangeFormState createState() => _ChangeFormState();
 }
+
+int count = 0;
 
 class _ChangeFormState extends State<ChangeForm> {
   String _text1 = '';
@@ -112,7 +129,12 @@ class _ChangeFormState extends State<ChangeForm> {
             ElevatedButton(
                 onPressed: () {
                   playerList.add(_text1);
-                  Navigator.of(context).pushNamed("/ct");
+                  count++;
+                  if (human > count) {
+                    Navigator.of(context).pushNamed("/inTexts1");
+                  } else {
+                    Navigator.of(context).pushNamed("/ct");
+                  }
                 },
                 child: new Text('確定'))
           ],
@@ -127,17 +149,33 @@ class ct extends StatefulWidget {
   _Ctest createState() => _Ctest();
 }
 
+int cunt = 0;
+
 class _Ctest extends State<ct> {
   Widget build(BuildContext context) {
     return Container(
         padding: const EdgeInsets.all(50.0),
         child: Column(children: <Widget>[
           Text(
-            playerList[0],
+            playerList[cunt],
             style: TextStyle(
                 color: Colors.blueAccent,
                 fontSize: 30.0,
                 fontWeight: FontWeight.w500),
+          ),
+          SizedBox(height: 30),
+          ElevatedButton(
+            onPressed: () {
+              cunt++;
+              if (human > cunt) {
+                Navigator.of(context).pushNamed("/ct");
+              } else {
+                for (int i = 0; i < human * 2; i++) {
+                  Navigator.of(context).pop();
+                }
+              }
+            },
+            child: new Text('次の人'),
           )
         ]));
   }

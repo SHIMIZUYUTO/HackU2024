@@ -57,7 +57,6 @@ class _CardListPageState extends State<CardListPage> {
                           child: pw.Image(pw.MemoryImage(cardList[itemIndex].E_Org!), fit: pw.BoxFit.contain),
                         ),
                         pw.SizedBox(height: 5),
-//                        pw.Text(cardList[itemIndex].Y_Reading),
                       ],
                     );
                   } else {
@@ -73,6 +72,15 @@ class _CardListPageState extends State<CardListPage> {
 
     await Printing.layoutPdf(
       onLayout: (PdfPageFormat format) async => pdf.save(),
+    );
+  }
+
+  void deleteCard(int index) {
+    setState(() {
+      cardList.removeAt(index);
+    });
+    ScaffoldMessenger.of(context).showSnackBar(
+      SnackBar(content: Text('カードを削除しました')),
     );
   }
 
@@ -102,44 +110,82 @@ class _CardListPageState extends State<CardListPage> {
               itemCount: cardList.length,
               itemBuilder: (context, index) {
                 return Card(
-                  child: ListTile(
-                    leading: cardList[index].E_Org != null
-                        ? Image.memory(
-                            cardList[index].E_Org!,
-                            width: 50,
-                            height: 75,
-                            fit: BoxFit.cover,
-                          )
-                        : Icon(Icons.image_not_supported),
-                    title: Text(cardList[index].Y_Reading),
-                    onTap: () {
-                      speak(cardList[index].Y_Reading);
-                      showDialog(
-                        context: context,
-                        builder: (BuildContext context) {
-                          return AlertDialog(
-                            title: Text(cardList[index].Y_Reading),
-                            content: cardList[index].E_Org != null
-                                ? Image.memory(cardList[index].E_Org!)
-                                : Text('画像がありません'),
-                            actions: <Widget>[
-                              TextButton(
-                                child: Text('閉じる'),
-                                onPressed: () {
-                                  Navigator.of(context).pop();
-                                },
-                              ),
-                              TextButton(
-                                child: Text('読み上げ'),
-                                onPressed: () {
-                                  speak(cardList[index].Y_Reading);
-                                },
-                              ),
-                            ],
+                  child: Column(
+                    children: [
+                      ListTile(
+                        leading: cardList[index].E_Org != null
+                            ? Image.memory(
+                                cardList[index].E_Org!,
+                                width: 50,
+                                height: 75,
+                                fit: BoxFit.cover,
+                              )
+                            : Icon(Icons.image_not_supported),
+                        title: Text(cardList[index].Y_Reading),
+                        onTap: () {
+                          speak(cardList[index].Y_Reading);
+                          showDialog(
+                            context: context,
+                            builder: (BuildContext context) {
+                              return AlertDialog(
+                                title: Text(cardList[index].Y_Reading),
+                                content: cardList[index].E_Org != null
+                                    ? Image.memory(cardList[index].E_Org!)
+                                    : Text('画像がありません'),
+                                actions: <Widget>[
+                                  TextButton(
+                                    child: Text('閉じる'),
+                                    onPressed: () {
+                                      Navigator.of(context).pop();
+                                    },
+                                  ),
+                                ],
+                              );
+                            },
                           );
                         },
-                      );
-                    },
+                      ),
+                      ButtonBar(
+                        alignment: MainAxisAlignment.spaceEvenly,
+                        children: [
+                          TextButton(
+                            child: Text('読み上げ'),
+                            onPressed: () {
+                              speak(cardList[index].Y_Reading);
+                            },
+                          ),
+                          TextButton(
+                            child: Text('カード削除'),
+                            onPressed: () {
+                              showDialog(
+                                context: context,
+                                builder: (BuildContext context) {
+                                  return AlertDialog(
+                                    title: Text('カードを削除'),
+                                    content: Text('このカードを削除しますか？'),
+                                    actions: <Widget>[
+                                      TextButton(
+                                        child: Text('キャンセル'),
+                                        onPressed: () {
+                                          Navigator.of(context).pop();
+                                        },
+                                      ),
+                                      TextButton(
+                                        child: Text('削除'),
+                                        onPressed: () {
+                                          deleteCard(index);
+                                          Navigator.of(context).pop();
+                                        },
+                                      ),
+                                    ],
+                                  );
+                                },
+                              );
+                            },
+                          ),
+                        ],
+                      ),
+                    ],
                   ),
                 );
               },

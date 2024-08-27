@@ -36,7 +36,7 @@ class _CardListPageState extends State<CardListPage> {
 
     // 1ページあたりの画像数
     final int imagesPerPage = 6;
-    
+
     for (var i = 0; i < cardList.length; i += imagesPerPage) {
       pdf.addPage(
         pw.Page(
@@ -48,13 +48,16 @@ class _CardListPageState extends State<CardListPage> {
                 imagesPerPage,
                 (index) {
                   final itemIndex = i + index;
-                  if (itemIndex < cardList.length && cardList[itemIndex].E_Org != null) {
+                  if (itemIndex < cardList.length &&
+                      cardList[itemIndex].E_Org != null) {
                     return pw.Column(
                       children: [
                         pw.Container(
                           width: 150,
                           height: 200,
-                          child: pw.Image(pw.MemoryImage(cardList[itemIndex].E_Org!), fit: pw.BoxFit.contain),
+                          child: pw.Image(
+                              pw.MemoryImage(cardList[itemIndex].E_Org!),
+                              fit: pw.BoxFit.contain),
                         ),
                         pw.SizedBox(height: 5),
                       ],

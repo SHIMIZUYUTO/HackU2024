@@ -210,7 +210,7 @@ class _MyHomePageState extends State<MyHomePage> {
                       Container(
                         margin: const EdgeInsets.all(20),
                         decoration: BoxDecoration(
-                          border: Border.all(width: 10),
+                          border: Border.all(color: Colors.green,width: 10),
                           color: Colors.red,
                         ),
                         child: _croppedImageBytes != null

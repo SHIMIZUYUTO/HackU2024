@@ -133,7 +133,7 @@ class _ChangeFormState extends State<ChangeForm> {
                   if (human > count) {
                     Navigator.of(context).pushNamed("/inTexts1");
                   } else {
-                    Navigator.of(context).pushNamed("/ct");
+                    Navigator.of(context).pushNamed("/playing");
                   }
                 },
                 child: new Text('確定'))
@@ -142,41 +142,72 @@ class _ChangeFormState extends State<ChangeForm> {
   }
 }
 
-//名前登録のチェック用
-class ct extends StatefulWidget {
+class playing extends StatefulWidget {
   String text1 = "";
+  List<int> point = [
+    0,
+    0,
+    0,
+    0,
+  ];
+  List<String> pointtx = ["0", "0", "0", "0"];
   @override
   _Ctest createState() => _Ctest();
 }
 
-int cunt = 0;
+class _Ctest extends State<playing> {
+  int count = 0;
+  List<int> point = [
+    0,
+    0,
+    0,
+    0,
+  ];
+  List<String> pointtx = ["0", "0", "0", "0"];
+  void pointup(int PLnumber) {
+    setState(() {
+      point[PLnumber] = point[PLnumber] + 1;
+      pointtx[PLnumber] = point[PLnumber].toString();
+    });
+  }
 
-class _Ctest extends State<ct> {
+  void pointdown(int PLnumber) {
+    setState(() {
+      point[0] = point[0] - 1;
+      pointtx[0] = point[0].toString();
+    });
+  }
+
   Widget build(BuildContext context) {
     return Container(
         padding: const EdgeInsets.all(50.0),
         child: Column(children: <Widget>[
           Text(
-            playerList[cunt],
+            playerList[0],
             style: TextStyle(
                 color: Colors.blueAccent,
                 fontSize: 30.0,
                 fontWeight: FontWeight.w500),
           ),
-          SizedBox(height: 30),
+          SizedBox(height: 20),
           ElevatedButton(
-            onPressed: () {
-              cunt++;
-              if (human > cunt) {
-                Navigator.of(context).pushNamed("/ct");
-              } else {
-                for (int i = 0; i < human * 2; i++) {
-                  Navigator.of(context).pop();
-                }
-              }
-            },
-            child: new Text('次の人'),
-          )
+              onPressed: () {
+                pointup(0);
+              },
+              child: new Text('+')),
+          Text(
+            pointtx[0],
+            style: TextStyle(
+                color: Colors.blueAccent,
+                fontSize: 30.0,
+                fontWeight: FontWeight.w500),
+          ),
+          SizedBox(height: 20),
+          ElevatedButton(
+              onPressed: () {
+                pointdown(0);
+              },
+              child: new Text("-")),
         ]));
   }
 }

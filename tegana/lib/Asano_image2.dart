@@ -60,7 +60,7 @@ class MyHomePage extends StatelessWidget {
               Container(
                 padding: EdgeInsets.all(10),
                 decoration: BoxDecoration(
-                  border: Border.all(color: Colors.blue, width: 5),
+                  border: Border.all(color: Colors.green, width: 5),
                 ),
                 child: Image.asset(
                   'images/icon.png',

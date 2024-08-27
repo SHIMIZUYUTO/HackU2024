@@ -47,7 +47,13 @@ class Card {
 }
 
 // リストの宣言
-List<String> playerList = [];
+List<String> playerList = [
+  "NOplayer",
+  "NOplayer ",
+  " NOplayer",
+  "NOplayer ",
+  " NOplayer"
+];
 List<Card> cardList = [];
 
 int human = 0;
@@ -369,6 +375,13 @@ class _ChangeFormState extends State<ChangeForm> {
     });
   }
 
+  void setplayer(String te) {
+    setState(() {
+      playerList[count] = te;
+      _text1 = '';
+    });
+  }
+
   Widget build(BuildContext context) {
     return Container(
         padding: const EdgeInsets.all(50.0),
@@ -395,12 +408,9 @@ class _ChangeFormState extends State<ChangeForm> {
             SizedBox(height: 20),
             ElevatedButton(
                 onPressed: () {
-                  playerList.add(
-                    _text1,
-                  );
+                  setplayer(_text1);
                   count++;
                   if (human > count) {
-                    Navigator.of(context).pushNamed("/inTexts1");
                   } else {
                     Navigator.of(context).pushNamed("/playing");
                   }
@@ -411,7 +421,6 @@ class _ChangeFormState extends State<ChangeForm> {
   }
 }
 
-//名前登録のチェック用
 class playing extends StatefulWidget {
   String text1 = "";
   List<int> point = [
@@ -443,8 +452,8 @@ class _Ctest extends State<playing> {
 
   void pointdown(int PLnumber) {
     setState(() {
-      point[0] = point[0] - 1;
-      pointtx[0] = point[0].toString();
+      point[PLnumber] = point[PLnumber] - 1;
+      pointtx[PLnumber] = point[PLnumber].toString();
     });
   }
 
@@ -476,6 +485,87 @@ class _Ctest extends State<playing> {
           ElevatedButton(
               onPressed: () {
                 pointdown(0);
+              },
+              child: new Text("-")),
+          //2
+          Text(
+            playerList[1],
+            style: TextStyle(
+                color: Colors.blueAccent,
+                fontSize: 30.0,
+                fontWeight: FontWeight.w500),
+          ),
+          SizedBox(height: 20),
+          ElevatedButton(
+              onPressed: () {
+                pointup(1);
+              },
+              child: new Text('+')),
+          Text(
+            pointtx[1],
+            style: TextStyle(
+                color: Colors.blueAccent,
+                fontSize: 30.0,
+                fontWeight: FontWeight.w500),
+          ),
+          SizedBox(height: 20),
+          ElevatedButton(
+              onPressed: () {
+                pointdown(1);
+              },
+              child: new Text("-")),
+          //3
+          Text(
+            playerList[2],
+            style: TextStyle(
+                color: Colors.blueAccent,
+                fontSize: 30.0,
+                fontWeight: FontWeight.w500),
+          ),
+          SizedBox(height: 20),
+          ElevatedButton(
+              onPressed: () {
+                pointup(2);
+              },
+              child: new Text('+')),
+          Text(
+            pointtx[2],
+            style: TextStyle(
+                color: Colors.blueAccent,
+                fontSize: 30.0,
+                fontWeight: FontWeight.w500),
+          ),
+          SizedBox(height: 20),
+          ElevatedButton(
+              onPressed: () {
+                pointdown(2);
+              },
+              child: new Text("-")),
+          //4
+          Text(
+            playerList[3],
+            style: TextStyle(
+                color: Colors.blueAccent,
+                fontSize: 30.0,
+                fontWeight: FontWeight.w500),
+          ),
+          SizedBox(height: 20),
+          ElevatedButton(
+              onPressed: () {
+                pointup(3);
+              },
+              child: new Text('+')),
+          Text(
+            pointtx[3],
+            style: TextStyle(
+                color: Colors.blueAccent,
+                fontSize: 30.0,
+                fontWeight: FontWeight.w500),
+          ),
+          SizedBox(height: 20),
+          ElevatedButton(
+              onPressed: () {
+                pointdown(3);
               },
               child: new Text("-")),
         ]));

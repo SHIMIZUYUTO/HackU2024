@@ -133,7 +133,7 @@ class _ChangeFormState extends State<ChangeForm> {
                   if (human > count) {
                     Navigator.of(context).pushNamed("/inTexts1");
                   } else {
-                    Navigator.of(context).pushNamed("/ct");
+                    Navigator.of(context).pushNamed("/playing");
                   }
                 },
                 child: new Text('確定'))

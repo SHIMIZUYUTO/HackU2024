@@ -48,7 +48,7 @@ class MyApp extends StatelessWidget {
         '/viewCards': (BuildContext context) => CardListPage(),
         '/inTexts1': (BuildContext context) => new inTexts1(),
         'PL': (BuildContext context) => new PL(),
-        '/ct': (BuildContext context) => new ct(),
+        '/playing': (BuildContext context) => new playing(),
       },
     );
   }

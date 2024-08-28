@@ -51,41 +51,80 @@ class _PLHomePage extends State<PLHomePage> {
   Widget build(BuildContext context) {
     return Padding(
       padding: const EdgeInsets.all(16.0),
-      child: Column(
-        children: <Widget>[
-          SizedBox(height: 30),
-          ElevatedButton(
-            onPressed: () {
-              human = 1;
-              Navigator.of(context).pushNamed("/inTexts1");
-            },
-            child: new Text('1'),
-          ),
-          SizedBox(height: 30),
-          ElevatedButton(
-            onPressed: () {
-              human = 2;
-              Navigator.of(context).pushNamed("/inTexts1");
-            },
-            child: new Text('2'),
-          ),
-          SizedBox(height: 30),
-          ElevatedButton(
-            onPressed: () {
-              human = 3;
-              Navigator.of(context).pushNamed("/inTexts1");
-            },
-            child: new Text('3'),
-          ),
-          SizedBox(height: 30),
-          ElevatedButton(
-            onPressed: () {
-              human = 4;
-              Navigator.of(context).pushNamed("/inTexts1");
-            },
-            child: new Text('4'),
-          )
-        ],
+      child: Align(
+        alignment: Alignment.topCenter, // 画面の中央上部に配置
+        child: Column(
+          children: <Widget>[
+            SizedBox(height: 30),
+            ElevatedButton(
+              onPressed: () {
+                human = 1;
+                Navigator.of(context).pushNamed("/inTexts1");
+              },
+              style: ElevatedButton.styleFrom(
+                minimumSize: Size(150, 60), // ボタンのサイズを設定
+              ),
+              child: new Text(
+                '1',
+                style: TextStyle(
+                  fontSize: 24, // フォントサイズを設定
+                  fontWeight: FontWeight.bold, // フォントの太さを設定
+                ),
+              ),
+            ),
+            SizedBox(height: 30),
+            ElevatedButton(
+              onPressed: () {
+                human = 2;
+                Navigator.of(context).pushNamed("/inTexts1");
+              },
+              style: ElevatedButton.styleFrom(
+                minimumSize: Size(150, 60), // ボタンのサイズを設定
+              ),
+              child: new Text(
+                '2',
+                style: TextStyle(
+                  fontSize: 24, // フォントサイズを設定
+                  fontWeight: FontWeight.bold, // フォントの太さを設定
+                ),
+              ),
+            ),
+            SizedBox(height: 30),
+            ElevatedButton(
+              onPressed: () {
+                human = 3;
+                Navigator.of(context).pushNamed("/inTexts1");
+              },
+              style: ElevatedButton.styleFrom(
+                minimumSize: Size(150, 60), // ボタンのサイズを設定
+              ),
+              child: new Text(
+                '3',
+                style: TextStyle(
+                  fontSize: 24, // フォントサイズを設定
+                  fontWeight: FontWeight.bold, // フォントの太さを設定
+                ),
+              ),
+            ),
+            SizedBox(height: 30),
+            ElevatedButton(
+              onPressed: () {
+                human = 4;
+                Navigator.of(context).pushNamed("/inTexts1");
+              },
+              style: ElevatedButton.styleFrom(
+                minimumSize: Size(150, 60), // ボタンのサイズを設定
+              ),
+              child: new Text(
+                '4',
+                style: TextStyle(
+                  fontSize: 24, // フォントサイズを設定
+                  fontWeight: FontWeight.bold, // フォントの太さを設定
+                ),
+              ),
+            )
+          ],
+        ),
       ),
     );
   }
@@ -245,6 +284,19 @@ class _Ctest extends State<playing> {
         padding: const EdgeInsets.all(16.0),
         child: Column(
           children: <Widget>[
+            Container(
+            padding: const EdgeInsets.all(8.0),
+            color: Colors.grey[200], // 背景色を設定（任意）
+            child: Text(
+              '読み札', // 読み札のテキストを表示
+              style: TextStyle(
+                color: Colors.black,
+                fontSize: 24.0,
+                fontWeight: FontWeight.bold,
+              ),
+            ),
+          ),
+          SizedBox(height: 20),
             ElevatedButton(
               onPressed: () {
                 Navigator.of(context).pop();

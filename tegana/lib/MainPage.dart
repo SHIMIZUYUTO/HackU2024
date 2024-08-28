@@ -6,7 +6,7 @@ class MainPage extends StatelessWidget {
     return Scaffold(
       backgroundColor: Colors.lightGreen,
       appBar: AppBar(
-        title: Text('かるたつくったるか',
+        title: Text('かるたつくつたるか',
             style: TextStyle(fontSize: 32, fontWeight: FontWeight.bold)),
         centerTitle: true,
       ),

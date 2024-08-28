@@ -1,11 +1,6 @@
 import 'package:flutter/material.dart';
 
-List<String> playerList = [
-  "noPlayer",
-  "noPlayer",
-  "noPlayer",
-  "noPlayer"
-];
+List<String> playerList = ["noPlayer", "noPlayer", "noPlayer", "noPlayer"];
 int human = 0;
 
 void main() => runApp(MyApp());
@@ -177,7 +172,7 @@ class _ChangeFormState extends State<ChangeForm> {
   Widget build(BuildContext context) {
     return Container(
       padding: const EdgeInsets.all(50.0),
-      child: Form( // Formウィジェットを追加
+      child: Form(
         key: _formKey, // フォームキーを設定
         child: Column(
           children: <Widget>[
@@ -285,18 +280,18 @@ class _Ctest extends State<playing> {
         child: Column(
           children: <Widget>[
             Container(
-            padding: const EdgeInsets.all(8.0),
-            color: Colors.grey[200], // 背景色を設定（任意）
-            child: Text(
-              '読み札', // 読み札のテキストを表示
-              style: TextStyle(
-                color: Colors.black,
-                fontSize: 24.0,
-                fontWeight: FontWeight.bold,
+              padding: const EdgeInsets.all(8.0),
+              color: Colors.grey[200], // 背景色を設定
+              child: Text(
+                '読み札', // 読み札のテキストを表示
+                style: TextStyle(
+                  color: Colors.black,
+                  fontSize: 24.0,
+                  fontWeight: FontWeight.bold,
+                ),
               ),
             ),
-          ),
-          SizedBox(height: 20),
+            SizedBox(height: 20),
             ElevatedButton(
               onPressed: () {
                 Navigator.of(context).pop();
@@ -311,7 +306,8 @@ class _Ctest extends State<playing> {
                 crossAxisCount: 2, // 2列に配置
                 crossAxisSpacing: 20.0, // 列間のスペース
                 mainAxisSpacing: 20.0, // 行間のスペース
-                children: List.generate(human, (index) {  //humanの値に応じて人数を変更
+                children: List.generate(human, (index) {
+                  //humanの値に応じて人数を変更
                   return Column(
                     children: [
                       Text(
@@ -327,7 +323,13 @@ class _Ctest extends State<playing> {
                         onPressed: () {
                           pointup(index);
                         },
-                        child: Text('+'),
+                        child: Text(
+                          '+',
+                          style: TextStyle(
+                            fontSize: 20, // フォントサイズを設定
+                            fontWeight: FontWeight.bold, // フォントの太さを設定
+                          ),
+                        ),
                       ),
                       Text(
                         pointtx[index],
@@ -342,7 +344,13 @@ class _Ctest extends State<playing> {
                         onPressed: () {
                           pointdown(index);
                         },
-                        child: Text('-'),
+                        child: Text(
+                          '-',
+                          style: TextStyle(
+                            fontSize: 20, // フォントサイズを設定
+                            fontWeight: FontWeight.bold, // フォントの太さを設定
+                          ),
+                        ),
                       ),
                     ],
                   );

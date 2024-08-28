@@ -1,12 +1,9 @@
 import 'package:flutter/material.dart';
-import 'package:tegana/ImageEditPage.dart';
 import 'dart:typed_data'; // Uint8Listに必要
 import 'MainPage.dart';
 import 'Photo.dart';
-import 'Yomifuda.dart';
 import 'view.dart';
 import 'play.dart';
-// import 'crop_your_image.dart';
 
 void main() => runApp(MyApp());
 

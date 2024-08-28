@@ -1,7 +1,4 @@
 import 'package:flutter/material.dart';
-import 'main.dart';
-import 'Photo.dart';
-import 'Yomifuda.dart';
 
 class MainPage extends StatelessWidget {
   @override
@@ -60,19 +57,7 @@ class MainPage extends StatelessWidget {
                       borderRadius: BorderRadius.circular(20),
                     ),
                   )),
-              const SizedBox(height: 80),
-              ElevatedButton(
-                  onPressed: () =>
-                      Navigator.of(context).pushNamed("/loasImage"),
-                  child: const Text('test',
-                      style: TextStyle(fontSize: 20, color: Colors.black87)),
-                  style: ElevatedButton.styleFrom(
-                    backgroundColor: Colors.lightBlue[200],
-                    minimumSize: const Size(200, 50),
-                    shape: RoundedRectangleBorder(
-                      borderRadius: BorderRadius.circular(10),
-                    ),
-                  )),
+
             ],
           ),
         ),

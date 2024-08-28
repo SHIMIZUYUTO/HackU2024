@@ -1,62 +1,87 @@
+import 'dart:io';
 import 'package:flutter/material.dart';
+import 'package:image_picker/image_picker.dart';
 
-void main() => runApp(MyApp());
+void main() {
+  runApp(MyApp());
+}
 
 class MyApp extends StatelessWidget {
   @override
   Widget build(BuildContext context) {
     return MaterialApp(
-      title: 'Form',
       home: Scaffold(
         appBar: AppBar(
-          title: Text('Form'),
+          title: Text('画像選択と表示'),
         ),
-        body: Center(
-          child: ChangeForm(),
-        ),
+        body: ImagePickerExample(),
       ),
     );
   }
 }
 
-class ChangeForm extends StatefulWidget {
+class ImagePickerExample extends StatefulWidget {
   @override
-  _ChangeFormState createState() => _ChangeFormState();
+  _ImagePickerExampleState createState() => _ImagePickerExampleState();
 }
 
-class _ChangeFormState extends State<ChangeForm> {
-  int _count = 0;
+class _ImagePickerExampleState extends State<ImagePickerExample> {
+  File? _image;  // 選択した画像を保存する変数
+  final ImagePicker _picker = ImagePicker();
 
-  void _handlePressed() {
-    setState(() {
-      _count++;
-    });
+  Future<void> _pickImage() async {
+    final XFile? pickedFile = await _picker.pickImage(source: ImageSource.gallery);
+
+    if (pickedFile != null) {
+      setState(() {
+        _image = File(pickedFile.path);
+      });
+    }
   }
 
+  @override
   Widget build(BuildContext context) {
-    return Container(
-      padding: const EdgeInsets.all(50.0),
+    return Center(
       child: Column(
-        children: <Widget>[
-          Text(
-            "$_count",
-            style: TextStyle(
-              color:Colors.blueAccent,
-              fontSize: 30.0,
-              fontWeight: FontWeight.w500
-            ),
+        mainAxisAlignment: MainAxisAlignment.center,
+        children: [
+          _image != null
+              ? Stack(
+                  children: [
+                    Image.file(
+                      _image!,
+                      width: 300,
+                      height: 300,
+                      fit: BoxFit.cover,
+                    ),
+                    Positioned(
+                      right: 10,
+                      top: 10,
+                      child: Container(
+                        width: 50,
+                        height: 50,
+                        decoration: BoxDecoration(
+                          color: Colors.red,
+                          shape: BoxShape.circle,
+                        ),
+                        child: Center(
+                          child: Text(
+                            '丸',
+                            style: TextStyle(color: Colors.white),
+                          ),
+                        ),
+                      ),
+                    ),
+                  ],
+                )
+              : Text('画像が選択されていません'),
+          SizedBox(height: 20),
+          ElevatedButton(
+            onPressed: _pickImage,
+            child: Text('画像を選択'),
           ),
-          TextButton(
-              onPressed: _handlePressed,
-               child: Text("クリック可"),
-               style: TextButton.styleFrom(
-                 textStyle: const TextStyle(fontSize: 30),
-                 foregroundColor: Colors.blue,
-                 fixedSize: Size(200, 200),
-                 alignment: Alignment.topCenter,
-          )),
         ],
-      )
+      ),
     );
   }
 }

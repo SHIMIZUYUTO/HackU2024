@@ -191,6 +191,14 @@ class _Ctest extends State<playing> {
     return Container(
         padding: const EdgeInsets.all(50.0),
         child: Column(children: <Widget>[
+          SizedBox(height: 20),
+          ElevatedButton(
+              onPressed: () {
+                Navigator.of(context).pop();
+                Navigator.of(context).pop();
+                Navigator.of(context).pop();
+              },
+              child: new Text('中断')),
           Text(
             playerList[0],
             style: TextStyle(

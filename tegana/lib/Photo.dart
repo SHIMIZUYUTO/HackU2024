@@ -4,7 +4,9 @@ import 'package:flutter/material.dart';
 import 'package:flutter/rendering.dart';
 import 'package:image_picker/image_picker.dart';
 import 'package:crop_your_image/crop_your_image.dart';
+import 'package:image/image.dart' as img;
 import 'main.dart';
+
 
 class Photo extends StatelessWidget {
   const Photo({Key? key}) : super(key: key);
@@ -87,9 +89,7 @@ class _MyHomePageState extends State<MyHomePage> {
                   onStatusChanged: (status) => print(status),
                   onCropped: (croppedData) {
                     if (!mounted) return;
-                    setState(() {
-                      _croppedImageBytes = croppedData;
-                    });
+                    _resizeAndSetImage(croppedData);
                     Navigator.of(context).pop();
                   },
                 ),
@@ -125,6 +125,20 @@ class _MyHomePageState extends State<MyHomePage> {
       return null;
     }
   }
+
+  // 画像をリサイズ
+  void _resizeAndSetImage(Uint8List croppedData) {
+    img.Image? image = img.decodeImage(croppedData);
+    if (image != null) {
+      img.Image resizedImage = img.copyResize(image, width: 200, height: 300);
+      setState(() {
+        _croppedImageBytes = Uint8List.fromList(img.encodeJpg(resizedImage));
+      });
+    } else {
+      print('Failed to decode image');
+    }
+  }
+
 
   void _registerCard() async {
     if (_formKey.currentState!.validate()) {

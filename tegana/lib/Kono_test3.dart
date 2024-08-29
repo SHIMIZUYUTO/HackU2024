@@ -145,12 +145,11 @@ class ChangeForm extends StatefulWidget {
   _ChangeFormState createState() => _ChangeFormState();
 }
 
-int count = 0;
-
 class _ChangeFormState extends State<ChangeForm> {
   String _text1 = '';
   TextEditingController _controller = TextEditingController(); // テキストコントローラを追加
   final _formKey = GlobalKey<FormState>(); // フォームキーを追加
+  int count = 0;
 
   void _handleText(String e) {
     setState(() {
@@ -176,14 +175,6 @@ class _ChangeFormState extends State<ChangeForm> {
           key: _formKey, // フォームキーを設定
           child: Column(
             children: <Widget>[
-              Text(
-                "$_text1",
-                style: TextStyle(
-                  color: Colors.blueAccent,
-                  fontSize: 30.0,
-                  fontWeight: FontWeight.w500,
-                ),
-              ),
               TextFormField(
                 controller: _controller, // コントローラをテキストフィールドに設定
                 enabled: true,
@@ -230,12 +221,7 @@ class _ChangeFormState extends State<ChangeForm> {
 
 class playing extends StatefulWidget {
   String text1 = "";
-  List<int> point = [
-    0,
-    0,
-    0,
-    0,
-  ];
+  List<int> point = [0, 0, 0, 0];
   List<String> pointtx = ["0", "0", "0", "0"];
   @override
   _Ctest createState() => _Ctest();
@@ -243,12 +229,7 @@ class playing extends StatefulWidget {
 
 class _Ctest extends State<playing> {
   int count = 0;
-  List<int> point = [
-    0,
-    0,
-    0,
-    0,
-  ];
+  List<int> point = [0, 0, 0, 0];
   List<String> pointtx = ["0", "0", "0", "0"];
 
   void pointup(int PLnumber) {
@@ -306,8 +287,8 @@ class _Ctest extends State<playing> {
             Expanded(
               child: GridView.count(
                 crossAxisCount: 2, // 2列に配置
-                crossAxisSpacing: 20.0, // 列間のスペース
-                mainAxisSpacing: 20.0, // 行間のスペース
+                crossAxisSpacing: 10.0, // 列間のスペース
+                mainAxisSpacing: 10.0, // 行間のスペース
                 children: List.generate(human, (index) {
                   //humanの値に応じて人数を変更
                   return Column(

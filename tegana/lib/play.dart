@@ -161,14 +161,6 @@ class _ChangeFormState extends State<ChangeForm> {
           key: _formKey, // フォームキーを設定
           child: Column(
             children: <Widget>[
-              Text(
-                "$_text1",
-                style: TextStyle(
-                  color: Colors.blueAccent,
-                  fontSize: 30.0,
-                  fontWeight: FontWeight.w500,
-                ),
-              ),
               TextFormField(
                 controller: _controller, // コントローラをテキストフィールドに設定
                 enabled: true,
@@ -228,6 +220,8 @@ class _Ctest extends State<playing> {
   final List<Cards> shuffleCards = List.from(cardList)..shuffle();
   late final iterator = shuffleCards.iterator;
   int currentCardIndex = 0;
+  bool isReadingCompleted = false; // 読み札を表示するかの判定に使う変数
+  bool showMessage = false; // メッセージを表示するかの判定に使う変数
 
   // String showNextCard(){
   //   if(iterator.moveNext()){
@@ -238,12 +232,28 @@ class _Ctest extends State<playing> {
   List<int> point = [0, 0, 0, 0];
   List<String> pointtx = ["0", "0", "0", "0"];
 
-  void pointup(int PLnumber) async{
+  Future<void> initTts() async {
+    await flutterTts.setLanguage("ja-JP");
+    await flutterTts.setSpeechRate(0.5);
+    await flutterTts.setVolume(1.0);
+    await flutterTts.setPitch(1.0);
+  }
+
+  Future<void> speak(String text) async {
+//    await flutterTts.speak('これからしゃべりますよ');
+    await Future.delayed(Duration(seconds: 1));
+    await flutterTts.speak(text);
+  }
+
+  void pointup(int PLnumber) async {
     setState(() {
       point[PLnumber] = point[PLnumber] + 1;
       pointtx[PLnumber] = point[PLnumber].toString();
+      currentCardIndex++;
+      isReadingCompleted = false;
+      showMessage = false; // メッセージを隠す
     });
-    await speak(shuffleCards[currentCardIndex].Y_Reading);
+    //await speak(shuffleCards[currentCardIndex].Y_Reading);
     // await Future.delayed(Duration(seconds: 3)); // 3秒待って次へ
     // setState((){
     //   currentCardIndex++;
@@ -263,21 +273,16 @@ class _Ctest extends State<playing> {
     });
   }
 
-  Future<void> initTts() async {
-    await flutterTts.setLanguage("ja-JP");
-    await flutterTts.setSpeechRate(0.5);
-    await flutterTts.setVolume(1.0);
-    await flutterTts.setPitch(1.0);
-  }
-
-  Future<void> speak(String text) async {
-//    await flutterTts.speak('これからしゃべりますよ');
-    await Future.delayed(Duration(seconds: 1));
-    await flutterTts.speak(text);
+  void _showNextCard() async {
+    await speak(shuffleCards[currentCardIndex].Y_Reading);
+    setState(() {
+      isReadingCompleted = true; // 読み札を表示
+      showMessage = false; // メッセージを隠す
+    });
   }
 
   @override
-  Widget build(BuildContext context)  {
+  Widget build(BuildContext context) {
     return Scaffold(
       appBar: AppBar(
         title: Text('遊ぶ'),
@@ -290,7 +295,9 @@ class _Ctest extends State<playing> {
               padding: const EdgeInsets.all(8.0),
               color: Colors.grey[200], // 背景色を設定
               child: Text(
-                shuffleCards[currentCardIndex].Y_Reading, // 読み札のテキストを表示、ここを変数に変えれば行ける？
+                isReadingCompleted
+                    ? shuffleCards[currentCardIndex].Y_Reading // true…テキストを表示
+                    : "", // false…テキストを表示しない
                 style: TextStyle(
                   color: Colors.black,
                   fontSize: 24.0,
@@ -309,17 +316,36 @@ class _Ctest extends State<playing> {
             ),
             SizedBox(height: 10),
             ElevatedButton(
-              onPressed: () {
-                currentCardIndex++;
+              onPressed: () async {
+                if (!isReadingCompleted) {
+                  _showNextCard();
+                } else {
+                  setState(() {
+                    showMessage = true; // メッセージを表示
+                  });
+                }
               },
               child: Text('次へ'),
             ),
+            SizedBox(height: 10),
+            if (showMessage) // メッセージを表示する条件
+              Container(
+                padding: const EdgeInsets.all(16.0),
+                child: Text(
+                  '得点を加算してください',
+                  style: TextStyle(
+                    fontSize: 20.0,
+                    fontWeight: FontWeight.bold,
+                    color: Colors.red,
+                  ),
+                ),
+              ),
             SizedBox(height: 20),
             Expanded(
               child: GridView.count(
                 crossAxisCount: 2, // 2列に配置
-                crossAxisSpacing: 20.0, // 列間のスペース
-                mainAxisSpacing: 20.0, // 行間のスペース
+                crossAxisSpacing: 10.0, // 列間のスペース
+                mainAxisSpacing: 10.0, // 行間のスペース
                 children: List.generate(human, (index) {
                   //humanの値に応じて人数を変更
                   return Column(

@@ -212,8 +212,10 @@ class _ChangeFormState extends State<ChangeForm> {
 }
 
 class playing extends StatefulWidget {
-  final playCards = <String>['ざんげするリーダー','ブルック'];
-//  fruits.Shuffle();
+//  final playCardsTest = <String>['ざんげするリーダー','ブルック','ゴールずらし'];
+//  late final List<String> shuffleTest = List.from(playCardsTest)..shuffle();
+//    final List<Cards> shuffleCards = List.from(cardList)..shuffle();
+
   String text1 = "";
   List<int> point = [
     0,
@@ -228,6 +230,9 @@ class playing extends StatefulWidget {
 
 class _Ctest extends State<playing> {
   int count = 0;
+  // 読札をシャッフル
+  final List<Cards> shuffleCards = List.from(cardList)..shuffle();
+
   List<int> point = [
     0,
     0,
@@ -270,7 +275,7 @@ class _Ctest extends State<playing> {
               padding: const EdgeInsets.all(8.0),
               color: Colors.grey[200], // 背景色を設定
               child: Text(
-                '読み札', // 読み札のテキストを表示、ここを変数に変えれば行ける？
+                shuffleCards[0].Y_Reading, // 読み札のテキストを表示、ここを変数に変えれば行ける？
                 style: TextStyle(
                   color: Colors.black,
                   fontSize: 24.0,

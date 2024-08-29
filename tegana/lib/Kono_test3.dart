@@ -9,10 +9,7 @@ class MyApp extends StatelessWidget {
   @override
   Widget build(BuildContext context) {
     return MaterialApp(
-      title: 'Karuta App',
-      theme: ThemeData(
-        primarySwatch: Colors.blue,
-      ),
+      title: 'play test',
       initialRoute: '/',
       routes: {
         '/': (context) => PL(),
@@ -48,77 +45,79 @@ class _PLHomePage extends State<PLHomePage> {
       padding: const EdgeInsets.all(16.0),
       child: Align(
         alignment: Alignment.topCenter, // 画面の中央上部に配置
-        child: Column(
-          children: <Widget>[
-            SizedBox(height: 30),
-            ElevatedButton(
-              onPressed: () {
-                human = 1;
-                Navigator.of(context).pushNamed("/inTexts1");
-              },
-              style: ElevatedButton.styleFrom(
-                minimumSize: Size(150, 60), // ボタンのサイズを設定
-              ),
-              child: new Text(
-                '1',
-                style: TextStyle(
-                  fontSize: 24, // フォントサイズを設定
-                  fontWeight: FontWeight.bold, // フォントの太さを設定
+        child: SingleChildScrollView(
+          child: Column(
+            children: <Widget>[
+              SizedBox(height: 30),
+              ElevatedButton(
+                onPressed: () {
+                  human = 1;
+                  Navigator.of(context).pushNamed("/inTexts1");
+                },
+                style: ElevatedButton.styleFrom(
+                  minimumSize: Size(150, 60), // ボタンのサイズを設定
+                ),
+                child: new Text(
+                  '1',
+                  style: TextStyle(
+                    fontSize: 24, // フォントサイズを設定
+                    fontWeight: FontWeight.bold, // フォントの太さを設定
+                  ),
                 ),
               ),
-            ),
-            SizedBox(height: 30),
-            ElevatedButton(
-              onPressed: () {
-                human = 2;
-                Navigator.of(context).pushNamed("/inTexts1");
-              },
-              style: ElevatedButton.styleFrom(
-                minimumSize: Size(150, 60), // ボタンのサイズを設定
-              ),
-              child: new Text(
-                '2',
-                style: TextStyle(
-                  fontSize: 24, // フォントサイズを設定
-                  fontWeight: FontWeight.bold, // フォントの太さを設定
+              SizedBox(height: 30),
+              ElevatedButton(
+                onPressed: () {
+                  human = 2;
+                  Navigator.of(context).pushNamed("/inTexts1");
+                },
+                style: ElevatedButton.styleFrom(
+                  minimumSize: Size(150, 60), // ボタンのサイズを設定
+                ),
+                child: new Text(
+                  '2',
+                  style: TextStyle(
+                    fontSize: 24, // フォントサイズを設定
+                    fontWeight: FontWeight.bold, // フォントの太さを設定
+                  ),
                 ),
               ),
-            ),
-            SizedBox(height: 30),
-            ElevatedButton(
-              onPressed: () {
-                human = 3;
-                Navigator.of(context).pushNamed("/inTexts1");
-              },
-              style: ElevatedButton.styleFrom(
-                minimumSize: Size(150, 60), // ボタンのサイズを設定
-              ),
-              child: new Text(
-                '3',
-                style: TextStyle(
-                  fontSize: 24, // フォントサイズを設定
-                  fontWeight: FontWeight.bold, // フォントの太さを設定
+              SizedBox(height: 30),
+              ElevatedButton(
+                onPressed: () {
+                  human = 3;
+                  Navigator.of(context).pushNamed("/inTexts1");
+                },
+                style: ElevatedButton.styleFrom(
+                  minimumSize: Size(150, 60), // ボタンのサイズを設定
+                ),
+                child: new Text(
+                  '3',
+                  style: TextStyle(
+                    fontSize: 24, // フォントサイズを設定
+                    fontWeight: FontWeight.bold, // フォントの太さを設定
+                  ),
                 ),
               ),
-            ),
-            SizedBox(height: 30),
-            ElevatedButton(
-              onPressed: () {
-                human = 4;
-                Navigator.of(context).pushNamed("/inTexts1");
-              },
-              style: ElevatedButton.styleFrom(
-                minimumSize: Size(150, 60), // ボタンのサイズを設定
-              ),
-              child: new Text(
-                '4',
-                style: TextStyle(
-                  fontSize: 24, // フォントサイズを設定
-                  fontWeight: FontWeight.bold, // フォントの太さを設定
+              SizedBox(height: 30),
+              ElevatedButton(
+                onPressed: () {
+                  human = 4;
+                  Navigator.of(context).pushNamed("/inTexts1");
+                },
+                style: ElevatedButton.styleFrom(
+                  minimumSize: Size(150, 60), // ボタンのサイズを設定
                 ),
-              ),
-            )
-          ],
+                child: new Text(
+                  '4',
+                  style: TextStyle(
+                    fontSize: 24, // フォントサイズを設定
+                    fontWeight: FontWeight.bold, // フォントの太さを設定
+                  ),
+                ),
+              )
+            ],
+          ),
         ),
       ),
     );
@@ -126,7 +125,6 @@ class _PLHomePage extends State<PLHomePage> {
 }
 
 //こっからテキストボックス
-//人数を頑張って渡そうとした
 class inTexts1 extends StatelessWidget {
   /*2*/
   @override
@@ -135,7 +133,7 @@ class inTexts1 extends StatelessWidget {
     return Scaffold(
         /*4*/
         appBar: AppBar(
-          title: Text("Startup Name Generator"),
+          title: Text("プレイヤー名の入力"),
         ),
         body: ChangeForm());
   }
@@ -172,54 +170,58 @@ class _ChangeFormState extends State<ChangeForm> {
   Widget build(BuildContext context) {
     return Container(
       padding: const EdgeInsets.all(50.0),
-      child: Form(
-        key: _formKey, // フォームキーを設定
-        child: Column(
-          children: <Widget>[
-            Text(
-              "$_text1",
-              style: TextStyle(
-                color: Colors.blueAccent,
-                fontSize: 30.0,
-                fontWeight: FontWeight.w500,
+      child: SingleChildScrollView(
+        //スクロールできるように追加
+        child: Form(
+          key: _formKey, // フォームキーを設定
+          child: Column(
+            children: <Widget>[
+              Text(
+                "$_text1",
+                style: TextStyle(
+                  color: Colors.blueAccent,
+                  fontSize: 30.0,
+                  fontWeight: FontWeight.w500,
+                ),
               ),
-            ),
-            TextFormField(
-              controller: _controller, // コントローラをテキストフィールドに設定
-              enabled: true,
-              maxLength: 10,
-              style: TextStyle(color: Colors.red),
-              obscureText: false,
-              maxLines: 1,
-              onChanged: _handleText,
-              decoration: InputDecoration(
-                border: OutlineInputBorder(),
-                labelText: '名前を入力してください', // 表示するラベル
-              ),
-              validator: (value) {
-                if (value == null || value.isEmpty) { // 入力欄が空欄だった場合
-                  return '名前が入力されていません'; // エラーメッセージ
-                }
-                return null; // エラーがない場合はnullを返す
-              },
-            ),
-            SizedBox(height: 20),
-            ElevatedButton(
-              onPressed: () {
-                // バリデーションの実行
-                if (_formKey.currentState!.validate()) {
-                  setplayer(_text1);
-                  count++;
-                  if (human > count) {
-                    // プレイヤーが全員登録されていない場合は何もしない
-                  } else {
-                    Navigator.of(context).pushNamed("/playing");
+              TextFormField(
+                controller: _controller, // コントローラをテキストフィールドに設定
+                enabled: true,
+                maxLength: 10,
+                style: TextStyle(color: Colors.red),
+                obscureText: false,
+                maxLines: 1,
+                onChanged: _handleText,
+                decoration: InputDecoration(
+                  border: OutlineInputBorder(),
+                  labelText: '名前を入力してください', // 表示するラベル
+                ),
+                validator: (value) {
+                  if (value == null || value.isEmpty) {
+                    // 入力欄が空欄だった場合
+                    return '名前が入力されていません'; // エラーメッセージ
                   }
-                }
-              },
-              child: Text('確定'),
-            ),
-          ],
+                  return null; // エラーがない場合はnullを返す
+                },
+              ),
+              SizedBox(height: 20),
+              ElevatedButton(
+                onPressed: () {
+                  // バリデーションの実行
+                  if (_formKey.currentState!.validate()) {
+                    setplayer(_text1);
+                    count++;
+                    if (human > count) {
+                      // プレイヤーが全員登録されていない場合は何もしない
+                    } else {
+                      Navigator.of(context).pushNamed("/playing");
+                    }
+                  }
+                },
+                child: Text('確定'),
+              ),
+            ],
+          ),
         ),
       ),
     );

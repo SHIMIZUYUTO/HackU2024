@@ -1,12 +1,6 @@
 import 'package:flutter/material.dart';
 
-List<String> playerList = [
-  "NOplayer",
-  "NOplayer ",
-  " NOplayer",
-  "NOplayer ",
-  " NOplayer"
-];
+List<String> playerList = ["noPlayer", "noPlayer", "noPlayer", "noPlayer"];
 int human = 0;
 
 //PL登録
@@ -32,48 +26,88 @@ class _PLHomePage extends State<PLHomePage> {
   Widget build(BuildContext context) {
     return Padding(
       padding: const EdgeInsets.all(16.0),
-      child: Column(
-        children: <Widget>[
-          SizedBox(height: 30),
-          ElevatedButton(
-            onPressed: () {
-              human = 1;
-              Navigator.of(context).pushNamed("/inTexts1");
-            },
-            child: new Text('1'),
+      child: Align(
+        alignment: Alignment.topCenter, // 画面の中央上部に配置
+        child: SingleChildScrollView(
+          child: Column(
+            children: <Widget>[
+              SizedBox(height: 30),
+              ElevatedButton(
+                onPressed: () {
+                  human = 1;
+                  Navigator.of(context).pushNamed("/inTexts1");
+                },
+                style: ElevatedButton.styleFrom(
+                  minimumSize: Size(150, 60), // ボタンのサイズを設定
+                ),
+                child: new Text(
+                  '1',
+                  style: TextStyle(
+                    fontSize: 24, // フォントサイズを設定
+                    fontWeight: FontWeight.bold, // フォントの太さを設定
+                  ),
+                ),
+              ),
+              SizedBox(height: 30),
+              ElevatedButton(
+                onPressed: () {
+                  human = 2;
+                  Navigator.of(context).pushNamed("/inTexts1");
+                },
+                style: ElevatedButton.styleFrom(
+                  minimumSize: Size(150, 60), // ボタンのサイズを設定
+                ),
+                child: new Text(
+                  '2',
+                  style: TextStyle(
+                    fontSize: 24, // フォントサイズを設定
+                    fontWeight: FontWeight.bold, // フォントの太さを設定
+                  ),
+                ),
+              ),
+              SizedBox(height: 30),
+              ElevatedButton(
+                onPressed: () {
+                  human = 3;
+                  Navigator.of(context).pushNamed("/inTexts1");
+                },
+                style: ElevatedButton.styleFrom(
+                  minimumSize: Size(150, 60), // ボタンのサイズを設定
+                ),
+                child: new Text(
+                  '3',
+                  style: TextStyle(
+                    fontSize: 24, // フォントサイズを設定
+                    fontWeight: FontWeight.bold, // フォントの太さを設定
+                  ),
+                ),
+              ),
+              SizedBox(height: 30),
+              ElevatedButton(
+                onPressed: () {
+                  human = 4;
+                  Navigator.of(context).pushNamed("/inTexts1");
+                },
+                style: ElevatedButton.styleFrom(
+                  minimumSize: Size(150, 60), // ボタンのサイズを設定
+                ),
+                child: new Text(
+                  '4',
+                  style: TextStyle(
+                    fontSize: 24, // フォントサイズを設定
+                    fontWeight: FontWeight.bold, // フォントの太さを設定
+                  ),
+                ),
+              )
+            ],
           ),
-          SizedBox(height: 30),
-          ElevatedButton(
-            onPressed: () {
-              human = 2;
-              Navigator.of(context).pushNamed("/inTexts1");
-            },
-            child: new Text('2'),
-          ),
-          SizedBox(height: 30),
-          ElevatedButton(
-            onPressed: () {
-              human = 3;
-              Navigator.of(context).pushNamed("/inTexts1");
-            },
-            child: new Text('3'),
-          ),
-          SizedBox(height: 30),
-          ElevatedButton(
-            onPressed: () {
-              human = 4;
-              Navigator.of(context).pushNamed("/inTexts1");
-            },
-            child: new Text('4'),
-          )
-        ],
+        ),
       ),
     );
   }
 }
 
 //こっからテキストボックス
-//人数を頑張って渡そうとした
 class inTexts1 extends StatelessWidget {
   /*2*/
   @override
@@ -82,7 +116,7 @@ class inTexts1 extends StatelessWidget {
     return Scaffold(
         /*4*/
         appBar: AppBar(
-          title: Text("Startup Name Generator"),
+          title: Text("プレイヤー名の入力"),
         ),
         body: ChangeForm());
   }
@@ -98,6 +132,8 @@ int count = 0;
 
 class _ChangeFormState extends State<ChangeForm> {
   String _text1 = '';
+  TextEditingController _controller = TextEditingController(); // テキストコントローラを追加
+  final _formKey = GlobalKey<FormState>(); // フォームキーを追加
 
   void _handleText(String e) {
     setState(() {
@@ -109,45 +145,69 @@ class _ChangeFormState extends State<ChangeForm> {
     setState(() {
       playerList[count] = te;
       _text1 = '';
+      _controller.clear(); // テキストコントローラをクリアして、入力フィールドをリセット
     });
   }
 
+  @override
   Widget build(BuildContext context) {
     return Container(
-        padding: const EdgeInsets.all(50.0),
-        child: Column(
-          children: <Widget>[
-            Text(
-              "$_text1",
-              style: TextStyle(
+      padding: const EdgeInsets.all(50.0),
+      child: SingleChildScrollView(
+        //スクロールできるように追加
+        child: Form(
+          key: _formKey, // フォームキーを設定
+          child: Column(
+            children: <Widget>[
+              Text(
+                "$_text1",
+                style: TextStyle(
                   color: Colors.blueAccent,
                   fontSize: 30.0,
-                  fontWeight: FontWeight.w500),
-            ),
-            new TextField(
-              enabled: true,
-              // 入力数
-              maxLength: 10,
-
-              style: TextStyle(color: Colors.red),
-              obscureText: false,
-              maxLines: 1,
-              //パスワード
-              onChanged: _handleText,
-            ),
-            SizedBox(height: 20),
-            ElevatedButton(
+                  fontWeight: FontWeight.w500,
+                ),
+              ),
+              TextFormField(
+                controller: _controller, // コントローラをテキストフィールドに設定
+                enabled: true,
+                maxLength: 10,
+                style: TextStyle(color: Colors.red),
+                obscureText: false,
+                maxLines: 1,
+                onChanged: _handleText,
+                decoration: InputDecoration(
+                  border: OutlineInputBorder(),
+                  labelText: '名前を入力してください', // 表示するラベル
+                ),
+                validator: (value) {
+                  if (value == null || value.isEmpty) {
+                    // 入力欄が空欄だった場合
+                    return '名前が入力されていません'; // エラーメッセージ
+                  }
+                  return null; // エラーがない場合はnullを返す
+                },
+              ),
+              SizedBox(height: 20),
+              ElevatedButton(
                 onPressed: () {
-                  setplayer(_text1);
-                  count++;
-                  if (human > count) {
-                  } else {
-                    Navigator.of(context).pushNamed("/playing");
+                  // バリデーションの実行
+                  if (_formKey.currentState!.validate()) {
+                    setplayer(_text1);
+                    count++;
+                    if (human > count) {
+                      // プレイヤーが全員登録されていない場合は何もしない
+                    } else {
+                      Navigator.of(context).pushNamed("/playing");
+                    }
                   }
                 },
-                child: new Text('確定'))
-          ],
-        ));
+                child: Text('確定'),
+              ),
+            ],
+          ),
+        ),
+      ),
+    );
   }
 }
 
@@ -173,6 +233,7 @@ class _Ctest extends State<playing> {
     0,
   ];
   List<String> pointtx = ["0", "0", "0", "0"];
+
   void pointup(int PLnumber) {
     setState(() {
       point[PLnumber] = point[PLnumber] + 1;
@@ -184,128 +245,106 @@ class _Ctest extends State<playing> {
     setState(() {
       point[PLnumber] = point[PLnumber] - 1;
       pointtx[PLnumber] = point[PLnumber].toString();
+
+      //以下はマイナスを許容しない場合
+      //if (point[PLnumber] > 0) { // スコアが0より大きい場合のみ減らす
+      //  point[PLnumber] = point[PLnumber] - 1;
+      //  pointtx[PLnumber] = point[PLnumber].toString(); // テキスト表示用リストを更新
+      //}
     });
   }
 
+  @override
   Widget build(BuildContext context) {
-    return Container(
-        padding: const EdgeInsets.all(50.0),
-        child: Column(children: <Widget>[
-          SizedBox(height: 20),
-          ElevatedButton(
+    return Scaffold(
+      appBar: AppBar(
+        title: Text('遊ぶ'),
+      ),
+      body: Padding(
+        padding: const EdgeInsets.all(16.0),
+        child: Column(
+          children: <Widget>[
+            Container(
+              padding: const EdgeInsets.all(8.0),
+              color: Colors.grey[200], // 背景色を設定
+              child: Text(
+                '読み札', // 読み札のテキストを表示
+                style: TextStyle(
+                  color: Colors.black,
+                  fontSize: 24.0,
+                  fontWeight: FontWeight.bold,
+                ),
+              ),
+            ),
+            SizedBox(height: 20),
+            ElevatedButton(
               onPressed: () {
                 Navigator.of(context).pop();
                 Navigator.of(context).pop();
                 Navigator.of(context).pop();
               },
-              child: new Text('中断')),
-          Text(
-            playerList[0],
-            style: TextStyle(
-                color: Colors.blueAccent,
-                fontSize: 30.0,
-                fontWeight: FontWeight.w500),
-          ),
-          SizedBox(height: 20),
-          ElevatedButton(
-              onPressed: () {
-                pointup(0);
-              },
-              child: new Text('+')),
-          Text(
-            pointtx[0],
-            style: TextStyle(
-                color: Colors.blueAccent,
-                fontSize: 30.0,
-                fontWeight: FontWeight.w500),
-          ),
-          SizedBox(height: 20),
-          ElevatedButton(
-              onPressed: () {
-                pointdown(0);
-              },
-              child: new Text("-")),
-          //2
-          Text(
-            playerList[1],
-            style: TextStyle(
-                color: Colors.blueAccent,
-                fontSize: 30.0,
-                fontWeight: FontWeight.w500),
-          ),
-          SizedBox(height: 20),
-          ElevatedButton(
-              onPressed: () {
-                pointup(1);
-              },
-              child: new Text('+')),
-          Text(
-            pointtx[1],
-            style: TextStyle(
-                color: Colors.blueAccent,
-                fontSize: 30.0,
-                fontWeight: FontWeight.w500),
-          ),
-          SizedBox(height: 20),
-          ElevatedButton(
-              onPressed: () {
-                pointdown(1);
-              },
-              child: new Text("-")),
-          //3
-          Text(
-            playerList[2],
-            style: TextStyle(
-                color: Colors.blueAccent,
-                fontSize: 30.0,
-                fontWeight: FontWeight.w500),
-          ),
-          SizedBox(height: 20),
-          ElevatedButton(
-              onPressed: () {
-                pointup(2);
-              },
-              child: new Text('+')),
-          Text(
-            pointtx[2],
-            style: TextStyle(
-                color: Colors.blueAccent,
-                fontSize: 30.0,
-                fontWeight: FontWeight.w500),
-          ),
-          SizedBox(height: 20),
-          ElevatedButton(
-              onPressed: () {
-                pointdown(2);
-              },
-              child: new Text("-")),
-          //4
-          Text(
-            playerList[3],
-            style: TextStyle(
-                color: Colors.blueAccent,
-                fontSize: 30.0,
-                fontWeight: FontWeight.w500),
-          ),
-          SizedBox(height: 20),
-          ElevatedButton(
-              onPressed: () {
-                pointup(3);
-              },
-              child: new Text('+')),
-          Text(
-            pointtx[3],
-            style: TextStyle(
-                color: Colors.blueAccent,
-                fontSize: 30.0,
-                fontWeight: FontWeight.w500),
-          ),
-          SizedBox(height: 20),
-          ElevatedButton(
-              onPressed: () {
-                pointdown(3);
-              },
-              child: new Text("-")),
-        ]));
+              child: Text('中断'),
+            ),
+            SizedBox(height: 20),
+            Expanded(
+              child: GridView.count(
+                crossAxisCount: 2, // 2列に配置
+                crossAxisSpacing: 20.0, // 列間のスペース
+                mainAxisSpacing: 20.0, // 行間のスペース
+                children: List.generate(human, (index) {
+                  //humanの値に応じて人数を変更
+                  return Column(
+                    children: [
+                      Text(
+                        playerList[index],
+                        style: TextStyle(
+                          color: Colors.blueAccent,
+                          fontSize: 20.0,
+                          fontWeight: FontWeight.w500,
+                        ),
+                      ),
+                      SizedBox(height: 10),
+                      ElevatedButton(
+                        onPressed: () {
+                          pointup(index);
+                        },
+                        child: Text(
+                          '+',
+                          style: TextStyle(
+                            fontSize: 20, // フォントサイズを設定
+                            fontWeight: FontWeight.bold, // フォントの太さを設定
+                          ),
+                        ),
+                      ),
+                      Text(
+                        pointtx[index],
+                        style: TextStyle(
+                          color: Colors.blueAccent,
+                          fontSize: 20.0,
+                          fontWeight: FontWeight.w500,
+                        ),
+                      ),
+                      SizedBox(height: 10),
+                      ElevatedButton(
+                        onPressed: () {
+                          pointdown(index);
+                        },
+                        child: Text(
+                          '-',
+                          style: TextStyle(
+                            fontSize: 20, // フォントサイズを設定
+                            fontWeight: FontWeight.bold, // フォントの太さを設定
+                          ),
+                        ),
+                      ),
+                    ],
+                  );
+                }),
+              ),
+            ),
+          ],
+        ),
+      ),
+    );
   }
 }

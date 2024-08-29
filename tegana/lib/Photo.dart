@@ -34,6 +34,7 @@ class _MyHomePageState extends State<MyHomePage> {
   final TextEditingController _textController = TextEditingController();
   final _formKey = GlobalKey<FormState>();
   final GlobalKey _repaintBoundaryKey = GlobalKey();
+  bool _isLoading = false;
 
   @override
   void initState() {
@@ -154,7 +155,10 @@ class _MyHomePageState extends State<MyHomePage> {
           );
           setState(() {
             cardList.add(newCard);
+            _isLoading = true;
           });
+          // (登録したとき2秒遅延)
+          await Future.delayed(Duration(seconds: 2));
           ScaffoldMessenger.of(context).showSnackBar(
             SnackBar(content: Text('カードが登録されました')),
           );
@@ -162,6 +166,7 @@ class _MyHomePageState extends State<MyHomePage> {
           setState(() {
             _croppedImageBytes = null;
             _imageBytes = null;
+            _isLoading = false;
           });
         } else {
           ScaffoldMessenger.of(context).showSnackBar(
@@ -199,7 +204,7 @@ class _MyHomePageState extends State<MyHomePage> {
                     foregroundColor: Colors.black,
                     shape: const StadiumBorder(),
                     side: const BorderSide(color: Colors.green),
-                    padding: const EdgeInsets.all(20),
+                    padding: const EdgeInsets.all(25),
                   ),
                   child: const Text('戻る'),
                 ),
@@ -208,10 +213,17 @@ class _MyHomePageState extends State<MyHomePage> {
                   style: ElevatedButton.styleFrom(
                     backgroundColor: Colors.blue,
                     foregroundColor: Colors.white,
-                    shape: const CircleBorder(),
-                    padding: const EdgeInsets.all(20),
+                    shape: const StadiumBorder(),
+                    padding: const EdgeInsets.all(25),
                   ),
-                  child: const Text('登録'),
+                  child: _isLoading
+                  ? SizedBox(
+                    width: 24,
+                    height: 24,
+                    child: CircularProgressIndicator(color: Colors.white,strokeWidth: 2,
+                    ),
+                  )
+                  : Text('登録'),
                 ),
               ],
             ),

@@ -178,7 +178,7 @@ class _ChangeFormState extends State<ChangeForm> {
                 onChanged: _handleText,
                 decoration: InputDecoration(
                   border: OutlineInputBorder(),
-                  labelText: '${count+1}人目の名前を入力してください', // 表示するラベル
+                  labelText: '${count + 1}人目の名前を入力してください', // 表示するラベル
                 ),
                 validator: (value) {
                   if (value == null || value.isEmpty) {
@@ -214,12 +214,7 @@ class _ChangeFormState extends State<ChangeForm> {
 
 class playing extends StatefulWidget {
   String text1 = "";
-  List<int> point = [
-    0,
-    0,
-    0,
-    0,
-  ];
+  List<int> point = [0, 0, 0, 0];
   List<String> pointtx = ["0", "0", "0", "0"];
   @override
   _Ctest createState() => _Ctest();
@@ -238,12 +233,7 @@ class _Ctest extends State<playing> {
   //   }
   // }
 
-  List<int> point = [
-    0,
-    0,
-    0,
-    0,
-  ];
+  List<int> point = [0, 0, 0, 0];
   List<String> pointtx = ["0", "0", "0", "0"];
 
   void pointup(int PLnumber) {

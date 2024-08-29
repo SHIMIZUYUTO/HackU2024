@@ -177,7 +177,7 @@ class _ChangeFormState extends State<ChangeForm> {
                 onChanged: _handleText,
                 decoration: InputDecoration(
                   border: OutlineInputBorder(),
-                  labelText: '名前を入力してください', // 表示するラベル
+                  labelText: '${count+1}人目の名前を入力してください', // 表示するラベル
                 ),
                 validator: (value) {
                   if (value == null || value.isEmpty) {
@@ -212,10 +212,6 @@ class _ChangeFormState extends State<ChangeForm> {
 }
 
 class playing extends StatefulWidget {
-//  final playCardsTest = <String>['ざんげするリーダー','ブルック','ゴールずらし'];
-//  late final List<String> shuffleTest = List.from(playCardsTest)..shuffle();
-//    final List<Cards> shuffleCards = List.from(cardList)..shuffle();
-
   String text1 = "";
   List<int> point = [
     0,
@@ -232,6 +228,13 @@ class _Ctest extends State<playing> {
   int count = 0;
   // 読札をシャッフル
   final List<Cards> shuffleCards = List.from(cardList)..shuffle();
+  late final iterator = shuffleCards.iterator;
+
+  // String showNextCard(){
+  //   if(iterator.moveNext()){
+  //     return shuffleCards[iterator].Y_reading;
+  //   }
+  // }
 
   List<int> point = [
     0,

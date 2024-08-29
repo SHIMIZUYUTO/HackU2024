@@ -1,4 +1,5 @@
 import 'package:flutter/material.dart';
+import 'main.dart';
 
 List<String> playerList = ["noPlayer", "noPlayer", "noPlayer", "noPlayer"];
 int human = 0;
@@ -128,13 +129,11 @@ class ChangeForm extends StatefulWidget {
   _ChangeFormState createState() => _ChangeFormState();
 }
 
-int count = 0;
-
 class _ChangeFormState extends State<ChangeForm> {
   String _text1 = '';
   TextEditingController _controller = TextEditingController(); // テキストコントローラを追加
   final _formKey = GlobalKey<FormState>(); // フォームキーを追加
-
+  int count = 0;
   void _handleText(String e) {
     setState(() {
       _text1 = e;
@@ -144,6 +143,7 @@ class _ChangeFormState extends State<ChangeForm> {
   void setplayer(String te) {
     setState(() {
       playerList[count] = te;
+
       _text1 = '';
       _controller.clear(); // テキストコントローラをクリアして、入力フィールドをリセット
     });

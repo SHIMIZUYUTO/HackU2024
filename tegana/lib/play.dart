@@ -1,5 +1,6 @@
 import 'package:flutter/material.dart';
 import 'main.dart';
+import 'package:flutter_tts/flutter_tts.dart';
 
 List<String> playerList = ["noPlayer", "noPlayer", "noPlayer", "noPlayer"];
 int human = 0;
@@ -225,6 +226,7 @@ class playing extends StatefulWidget {
 }
 
 class _Ctest extends State<playing> {
+  FlutterTts flutterTts = FlutterTts();
   int count = 0;
   // 読札をシャッフル
   final List<Cards> shuffleCards = List.from(cardList)..shuffle();
@@ -262,6 +264,17 @@ class _Ctest extends State<playing> {
       //  pointtx[PLnumber] = point[PLnumber].toString(); // テキスト表示用リストを更新
       //}
     });
+  }
+
+  Future<void> initTts() async {
+    await flutterTts.setLanguage("ja-JP");
+    await flutterTts.setSpeechRate(0.5);
+    await flutterTts.setVolume(1.0);
+    await flutterTts.setPitch(1.0);
+  }
+
+  Future<void> speak(String text) async {
+    await flutterTts.speak(text);
   }
 
   @override
@@ -317,6 +330,7 @@ class _Ctest extends State<playing> {
                       ElevatedButton(
                         onPressed: () {
                           pointup(index);
+                          speak(shuffleCards[0].Y_Reading);
                         },
                         child: Text(
                           '+',

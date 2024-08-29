@@ -1,4 +1,5 @@
 import 'package:flutter/material.dart';
+import 'package:flutter/widgets.dart';
 import 'main.dart';
 import 'package:flutter_tts/flutter_tts.dart';
 
@@ -226,6 +227,7 @@ class _Ctest extends State<playing> {
   // 読札をシャッフル
   final List<Cards> shuffleCards = List.from(cardList)..shuffle();
   late final iterator = shuffleCards.iterator;
+  int currentCardIndex = 0;
 
   // String showNextCard(){
   //   if(iterator.moveNext()){
@@ -236,11 +238,16 @@ class _Ctest extends State<playing> {
   List<int> point = [0, 0, 0, 0];
   List<String> pointtx = ["0", "0", "0", "0"];
 
-  void pointup(int PLnumber) {
+  void pointup(int PLnumber) async{
     setState(() {
       point[PLnumber] = point[PLnumber] + 1;
       pointtx[PLnumber] = point[PLnumber].toString();
     });
+    await speak(shuffleCards[currentCardIndex].Y_Reading);
+    // await Future.delayed(Duration(seconds: 3)); // 3秒待って次へ
+    // setState((){
+    //   currentCardIndex++;
+    // });
   }
 
   void pointdown(int PLnumber) {
@@ -270,7 +277,7 @@ class _Ctest extends State<playing> {
   }
 
   @override
-  Widget build(BuildContext context) {
+  Widget build(BuildContext context)  {
     return Scaffold(
       appBar: AppBar(
         title: Text('遊ぶ'),
@@ -283,7 +290,7 @@ class _Ctest extends State<playing> {
               padding: const EdgeInsets.all(8.0),
               color: Colors.grey[200], // 背景色を設定
               child: Text(
-                shuffleCards[0].Y_Reading, // 読み札のテキストを表示、ここを変数に変えれば行ける？
+                shuffleCards[currentCardIndex].Y_Reading, // 読み札のテキストを表示、ここを変数に変えれば行ける？
                 style: TextStyle(
                   color: Colors.black,
                   fontSize: 24.0,
@@ -299,6 +306,13 @@ class _Ctest extends State<playing> {
                 Navigator.of(context).pop();
               },
               child: Text('中断'),
+            ),
+            SizedBox(width: 10),
+            ElevatedButton(
+              onPressed: () {
+                currentCardIndex++;
+              },
+              child: Text('次へ'),
             ),
             SizedBox(height: 20),
             Expanded(
@@ -322,7 +336,6 @@ class _Ctest extends State<playing> {
                       ElevatedButton(
                         onPressed: () {
                           pointup(index);
-                          speak(shuffleCards[0].Y_Reading);
                         },
                         child: Text(
                           '+',

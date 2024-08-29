@@ -307,7 +307,7 @@ class _Ctest extends State<playing> {
               },
               child: Text('中断'),
             ),
-            SizedBox(width: 10),
+            SizedBox(height: 10),
             ElevatedButton(
               onPressed: () {
                 currentCardIndex++;

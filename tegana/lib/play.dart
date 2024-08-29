@@ -1,4 +1,5 @@
 import 'package:flutter/material.dart';
+import 'main.dart';
 
 List<String> playerList = ["noPlayer", "noPlayer", "noPlayer", "noPlayer"];
 int human = 0;
@@ -211,6 +212,8 @@ class _ChangeFormState extends State<ChangeForm> {
 }
 
 class playing extends StatefulWidget {
+  final playCards = <String>['ざんげするリーダー','ブルック'];
+//  fruits.Shuffle();
   String text1 = "";
   List<int> point = [
     0,

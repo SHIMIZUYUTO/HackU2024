@@ -274,7 +274,7 @@ class _Ctest extends State<playing> {
   }
 
   Future<void> speak(String text) async {
-    await flutterTts.speak('これからしゃべりますよ');
+//    await flutterTts.speak('これからしゃべりますよ');
     await Future.delayed(Duration(seconds: 1));
     await flutterTts.speak(text);
   }

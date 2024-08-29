@@ -268,7 +268,7 @@ class _Ctest extends State<playing> {
               padding: const EdgeInsets.all(8.0),
               color: Colors.grey[200], // 背景色を設定
               child: Text(
-                '読み札', // 読み札のテキストを表示
+                '読み札', // 読み札のテキストを表示、ここを変数に変えれば行ける？
                 style: TextStyle(
                   color: Colors.black,
                   fontSize: 24.0,

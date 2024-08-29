@@ -13,7 +13,7 @@ class Photo extends StatelessWidget {
 
   @override
   Widget build(BuildContext context) {
-    return const MyHomePage(title: '絵札登録ページ');
+    return const MyHomePage(title: '絵札・読札登録ページ');
   }
 }
 
@@ -129,7 +129,7 @@ class _MyHomePageState extends State<MyHomePage> {
   // 画像をリサイズ
   void _resizeAndSetImage(Uint8List croppedData) {
     img.Image? image = img.decodeImage(croppedData);
-    
+
     if (image != null) {
       img.Image resizedImage = img.copyResize(image, width: 200, height: 300);
       setState(() {

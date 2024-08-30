@@ -235,9 +235,9 @@ class _Ctest extends State<playing> {
 
   Future<void> initTts() async {
     await flutterTts.setLanguage("ja-JP");
-    await flutterTts.setSpeechRate(0.3);
+    await flutterTts.setSpeechRate(0.5);
     await flutterTts.setVolume(1.0);
-    await flutterTts.setPitch(0.5);
+    await flutterTts.setPitch(0.7);
   }
 
   Future<void> speak(String text) async {

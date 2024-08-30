@@ -1,7 +1,6 @@
 import 'package:flutter/material.dart';
 import 'main.dart';
 
-
 class MainPage extends StatefulWidget {
   @override
   _MainPageState createState() => _MainPageState();
@@ -11,15 +10,19 @@ class _MainPageState extends State<MainPage> {
   String _errorMessage = '';
 
   void _handleButtonClick() {
-    if (cardList.isEmpty){
+    if (cardList.isEmpty) {
       setState(() {
-      _errorMessage = '読み札を登録してください。';
+        _errorMessage = '読み札を登録してください。';
       });
-      Text(_errorMessage, style: TextStyle(color: Colors.red, fontSize: 18),);
+      Text(
+        _errorMessage,
+        style: TextStyle(color: Colors.red, fontSize: 18),
+      );
     } else {
       Navigator.of(context).pushNamed("PL");
     }
   }
+
   @override
   Widget build(BuildContext context) {
     return Scaffold(
@@ -36,11 +39,14 @@ class _MainPageState extends State<MainPage> {
             mainAxisAlignment: MainAxisAlignment.center,
             children: <Widget>[
               Expanded(
-                child: Image.asset('images/icon.png'),
+                child: Image.asset('images/icon2.png'),
               ),
               const SizedBox(height: 20),
               if (cardList.isEmpty)
-              Text(_errorMessage, style: TextStyle(color: Colors.red, fontSize: 18),),
+                Text(
+                  _errorMessage,
+                  style: TextStyle(color: Colors.red, fontSize: 18),
+                ),
               ElevatedButton(
                   onPressed: _handleButtonClick,
                   //=> Navigator.of(context).pushNamed("PL"),
@@ -79,7 +85,6 @@ class _MainPageState extends State<MainPage> {
                       borderRadius: BorderRadius.circular(20),
                     ),
                   )),
-
             ],
           ),
         ),

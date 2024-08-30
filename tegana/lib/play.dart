@@ -1,3 +1,5 @@
+import 'dart:async';
+
 import 'package:flutter/material.dart';
 import 'package:flutter/widgets.dart';
 import 'main.dart';
@@ -240,8 +242,8 @@ class _Ctest extends State<playing> {
   }
 
   Future<void> speak(String text) async {
-//    await flutterTts.speak('これからしゃべりますよ');
-    await Future.delayed(Duration(seconds: 1));
+    await flutterTts.speak('読みます');
+    await Future.delayed(Duration(seconds: 5));
     await flutterTts.speak(text);
   }
 
@@ -297,10 +299,10 @@ class _Ctest extends State<playing> {
               child: Text(
                 isReadingCompleted
                     ? shuffleCards[currentCardIndex].Y_Reading // true…テキストを表示
-                    : "", // false…テキストを表示しない
+                    : "？？？", // false…テキストを表示しない
                 style: TextStyle(
                   color: Colors.black,
-                  fontSize: 24.0,
+                  fontSize: 50.0,
                   fontWeight: FontWeight.bold,
                 ),
               ),

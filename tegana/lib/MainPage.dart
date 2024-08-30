@@ -1,6 +1,28 @@
 import 'package:flutter/material.dart';
+import 'main.dart';
 
-class MainPage extends StatelessWidget {
+class MainPage extends StatefulWidget {
+  @override
+  _MainPageState createState() => _MainPageState();
+}
+
+class _MainPageState extends State<MainPage> {
+  String _errorMessage = '';
+
+  void _handleButtonClick() {
+    if (cardList.isEmpty) {
+      setState(() {
+        _errorMessage = '読み札を登録してください。';
+      });
+      Text(
+        _errorMessage,
+        style: TextStyle(color: Colors.red, fontSize: 18),
+      );
+    } else {
+      Navigator.of(context).pushNamed("PL");
+    }
+  }
+
   @override
   Widget build(BuildContext context) {
     return Scaffold(
@@ -17,11 +39,17 @@ class MainPage extends StatelessWidget {
             mainAxisAlignment: MainAxisAlignment.center,
             children: <Widget>[
               Expanded(
-                child: Image.asset('images/icon.png'),
+                child: Image.asset('images/icon2.png'),
               ),
-              const SizedBox(height: 30),
+              const SizedBox(height: 20),
+              if (cardList.isEmpty)
+                Text(
+                  _errorMessage,
+                  style: TextStyle(color: Colors.red, fontSize: 18),
+                ),
               ElevatedButton(
-                  onPressed: () => Navigator.of(context).pushNamed("PL"),
+                  onPressed: _handleButtonClick,
+                  //=> Navigator.of(context).pushNamed("PL"),
                   child: const Text('遊ぶ',
                       style: TextStyle(fontSize: 20, color: Colors.black87)),
                   style: ElevatedButton.styleFrom(
@@ -31,7 +59,7 @@ class MainPage extends StatelessWidget {
                       borderRadius: BorderRadius.circular(20),
                     ),
                   )),
-              const SizedBox(height: 80),
+              const SizedBox(height: 70),
               ElevatedButton(
                   onPressed: () =>
                       Navigator.of(context).pushNamed("/testPhoto"),
@@ -57,7 +85,6 @@ class MainPage extends StatelessWidget {
                       borderRadius: BorderRadius.circular(20),
                     ),
                   )),
-
             ],
           ),
         ),

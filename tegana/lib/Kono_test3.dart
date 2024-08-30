@@ -1,11 +1,24 @@
-import 'dart:async';
 import 'package:flutter/material.dart';
-import 'package:flutter/widgets.dart';
-import 'main.dart';
-import 'package:flutter_tts/flutter_tts.dart';
 
 List<String> playerList = ["noPlayer", "noPlayer", "noPlayer", "noPlayer"];
 int human = 0;
+
+void main() => runApp(MyApp());
+
+class MyApp extends StatelessWidget {
+  @override
+  Widget build(BuildContext context) {
+    return MaterialApp(
+      title: 'play test',
+      initialRoute: '/',
+      routes: {
+        '/': (context) => PL(),
+        '/inTexts1': (context) => inTexts1(),
+        '/playing': (context) => playing(),
+      },
+    );
+  }
+}
 
 //PL登録
 class PL extends StatelessWidget {
@@ -137,6 +150,7 @@ class _ChangeFormState extends State<ChangeForm> {
   TextEditingController _controller = TextEditingController(); // テキストコントローラを追加
   final _formKey = GlobalKey<FormState>(); // フォームキーを追加
   int count = 0;
+
   void _handleText(String e) {
     setState(() {
       _text1 = e;
@@ -146,7 +160,6 @@ class _ChangeFormState extends State<ChangeForm> {
   void setplayer(String te) {
     setState(() {
       playerList[count] = te;
-
       _text1 = '';
       _controller.clear(); // テキストコントローラをクリアして、入力フィールドをリセット
     });
@@ -172,7 +185,7 @@ class _ChangeFormState extends State<ChangeForm> {
                 onChanged: _handleText,
                 decoration: InputDecoration(
                   border: OutlineInputBorder(),
-                  labelText: '${count + 1}人目の名前を入力してください', // 表示するラベル
+                  labelText: '名前を入力してください', // 表示するラベル
                 ),
                 validator: (value) {
                   if (value == null || value.isEmpty) {
@@ -215,50 +228,15 @@ class playing extends StatefulWidget {
 }
 
 class _Ctest extends State<playing> {
-  FlutterTts flutterTts = FlutterTts();
   int count = 0;
-  // 読札をシャッフル
-  final List<Cards> shuffleCards = List.from(cardList)..shuffle();
-  late final iterator = shuffleCards.iterator;
-  int currentCardIndex = 0;
-  bool isReadingCompleted = false; // 読み札を表示するかの判定に使う変数
-  bool showMessage = false; // メッセージを表示するかの判定に使う変数
-
-  // String showNextCard(){
-  //   if(iterator.moveNext()){
-  //     return shuffleCards[iterator].Y_reading;
-  //   }
-  // }
-
   List<int> point = [0, 0, 0, 0];
   List<String> pointtx = ["0", "0", "0", "0"];
 
-  Future<void> initTts() async {
-    await flutterTts.setLanguage("ja-JP");
-    await flutterTts.setSpeechRate(0.3);
-    await flutterTts.setVolume(1.0);
-    await flutterTts.setPitch(0.5);
-  }
-
-  Future<void> speak(String text) async {
-    await flutterTts.speak('読みます');
-    await Future.delayed(Duration(seconds: 5));
-    await flutterTts.speak(text);
-  }
-
-  void pointup(int PLnumber) async {
+  void pointup(int PLnumber) {
     setState(() {
       point[PLnumber] = point[PLnumber] + 1;
       pointtx[PLnumber] = point[PLnumber].toString();
-      currentCardIndex++;
-      isReadingCompleted = false;
-      showMessage = false; // メッセージを隠す
     });
-    //await speak(shuffleCards[currentCardIndex].Y_Reading);
-    // await Future.delayed(Duration(seconds: 3)); // 3秒待って次へ
-    // setState((){
-    //   currentCardIndex++;
-    // });
   }
 
   void pointdown(int PLnumber) {
@@ -274,27 +252,11 @@ class _Ctest extends State<playing> {
     });
   }
 
-  void _showNextCard() async {
-    if (currentCardIndex < shuffleCards.length) {
-    await speak(shuffleCards[currentCardIndex].Y_Reading);
-    setState(() {
-      isReadingCompleted = true; // 読み札を表示
-      showMessage = false; // メッセージを隠す
-    });
-  } else {
-    // カードがすべて表示された場合、結果画面に遷移する
-    Navigator.of(context).pushReplacementNamed(
-      '/result',
-      arguments: point,
-      );
-  }
-  }
-
   @override
   Widget build(BuildContext context) {
     return Scaffold(
       appBar: AppBar(
-        title: Text('遊ぶ'),
+        title: Text('Playing'),
       ),
       body: Padding(
         padding: const EdgeInsets.all(16.0),
@@ -304,12 +266,10 @@ class _Ctest extends State<playing> {
               padding: const EdgeInsets.all(8.0),
               color: Colors.grey[200], // 背景色を設定
               child: Text(
-                isReadingCompleted
-                    ? shuffleCards[currentCardIndex].Y_Reading // true…テキストを表示
-                    : "？？？", // false…テキストを表示しない
+                '読み札', // 読み札のテキストを表示
                 style: TextStyle(
                   color: Colors.black,
-                  fontSize: 50.0,
+                  fontSize: 24.0,
                   fontWeight: FontWeight.bold,
                 ),
               ),
@@ -323,32 +283,6 @@ class _Ctest extends State<playing> {
               },
               child: Text('中断'),
             ),
-            SizedBox(height: 10),
-            ElevatedButton(
-              onPressed: () async {
-                if (!isReadingCompleted) {
-                  _showNextCard();
-                } else {
-                  setState(() {
-                    showMessage = true; // メッセージを表示
-                  });
-                }
-              },
-              child: Text('次へ'),
-            ),
-            SizedBox(height: 10),
-            if (showMessage) // メッセージを表示する条件
-              Container(
-                padding: const EdgeInsets.all(16.0),
-                child: Text(
-                  '得点を加算してください',
-                  style: TextStyle(
-                    fontSize: 20.0,
-                    fontWeight: FontWeight.bold,
-                    color: Colors.red,
-                  ),
-                ),
-              ),
             SizedBox(height: 20),
             Expanded(
               child: GridView.count(

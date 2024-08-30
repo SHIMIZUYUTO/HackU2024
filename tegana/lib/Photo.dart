@@ -132,7 +132,7 @@ class _MyHomePageState extends State<MyHomePage> {
     img.Image? image = img.decodeImage(croppedData);
 
     if (image != null) {
-      img.Image resizedImage = img.copyResize(image, width: 200, height: 300);
+      img.Image resizedImage = img.copyResize(image, width: 300, height: 450);
       setState(() {
         _croppedImageBytes = Uint8List.fromList(img.encodeJpg(resizedImage));
       });

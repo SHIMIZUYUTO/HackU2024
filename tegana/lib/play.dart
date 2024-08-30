@@ -1,5 +1,4 @@
 import 'dart:async';
-
 import 'package:flutter/material.dart';
 import 'package:flutter/widgets.dart';
 import 'main.dart';
@@ -276,11 +275,19 @@ class _Ctest extends State<playing> {
   }
 
   void _showNextCard() async {
+    if (currentCardIndex < shuffleCards.length) {
     await speak(shuffleCards[currentCardIndex].Y_Reading);
     setState(() {
       isReadingCompleted = true; // 読み札を表示
       showMessage = false; // メッセージを隠す
     });
+  } else {
+    // カードがすべて表示された場合、結果画面に遷移する
+    Navigator.of(context).pushReplacementNamed(
+      '/result',
+      arguments: point,
+      );
+  }
   }
 
   @override
@@ -342,13 +349,6 @@ class _Ctest extends State<playing> {
                   ),
                 ),
               ),
-            SizedBox(height: 10),
-            ElevatedButton(
-              onPressed: () async {
-                final result = await Navigator.pushNamed(context,'/result');
-              },
-              child: Text('結果'),
-            ),
             SizedBox(height: 20),
             Expanded(
               child: GridView.count(

@@ -47,7 +47,7 @@ class MyApp extends StatelessWidget {
         '/inTexts1': (BuildContext context) => new inTexts1(),
         'PL': (BuildContext context) => new PL(),
         '/playing': (BuildContext context) => new playing(),
-        '/result': (BuildContext context) => new Result(),
+        '/result': (BuildContext context) => new ResultPage(),
       },
     );
   }

@@ -34,7 +34,7 @@ class _CardListPageState extends State<CardListPage> {
     final pdf = pw.Document();
 
     // 1ページあたりの画像数
-    final int imagesPerPage = 6;
+    final int imagesPerPage = 9;
 
     for (var i = 0; i < cardList.length; i += imagesPerPage) {
       pdf.addPage(

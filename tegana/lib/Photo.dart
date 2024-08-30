@@ -7,7 +7,6 @@ import 'package:crop_your_image/crop_your_image.dart';
 import 'package:image/image.dart' as img;
 import 'main.dart';
 
-
 class Photo extends StatelessWidget {
   const Photo({Key? key}) : super(key: key);
 
@@ -55,7 +54,8 @@ class _MyHomePageState extends State<MyHomePage> {
 
   Future<void> _getImage() async {
     try {
-      final XFile? pickedFile = await picker.pickImage(source: ImageSource.gallery);
+      final XFile? pickedFile =
+          await picker.pickImage(source: ImageSource.gallery);
 
       if (pickedFile != null) {
         final bytes = await pickedFile.readAsBytes();
@@ -117,9 +117,11 @@ class _MyHomePageState extends State<MyHomePage> {
 
   Future<Uint8List?> _captureImage() async {
     try {
-      RenderRepaintBoundary boundary = _repaintBoundaryKey.currentContext!.findRenderObject() as RenderRepaintBoundary;
+      RenderRepaintBoundary boundary = _repaintBoundaryKey.currentContext!
+          .findRenderObject() as RenderRepaintBoundary;
       ui.Image image = await boundary.toImage(pixelRatio: 3.0);
-      ByteData? byteData = await image.toByteData(format: ui.ImageByteFormat.png);
+      ByteData? byteData =
+          await image.toByteData(format: ui.ImageByteFormat.png);
       return byteData?.buffer.asUint8List();
     } catch (e) {
       print('Error capturing image: $e');
@@ -132,7 +134,7 @@ class _MyHomePageState extends State<MyHomePage> {
     img.Image? image = img.decodeImage(croppedData);
 
     if (image != null) {
-      img.Image resizedImage = img.copyResize(image, width: 300, height: 450);
+      img.Image resizedImage = img.copyResize(image, width: 450, height: 675);
       setState(() {
         _croppedImageBytes = Uint8List.fromList(img.encodeJpg(resizedImage));
       });
@@ -140,7 +142,6 @@ class _MyHomePageState extends State<MyHomePage> {
       print('Failed to decode image');
     }
   }
-
 
   void _registerCard() async {
     if (_formKey.currentState!.validate()) {
@@ -183,7 +184,8 @@ class _MyHomePageState extends State<MyHomePage> {
 
   @override
   Widget build(BuildContext context) {
-    String firstChar = _textController.text.isNotEmpty ? _textController.text[0] : '';
+    String firstChar =
+        _textController.text.isNotEmpty ? _textController.text[0] : '';
 
     return Scaffold(
       appBar: AppBar(
@@ -217,13 +219,15 @@ class _MyHomePageState extends State<MyHomePage> {
                     padding: const EdgeInsets.all(25),
                   ),
                   child: _isLoading
-                  ? SizedBox(
-                    width: 24,
-                    height: 24,
-                    child: CircularProgressIndicator(color: Colors.white,strokeWidth: 2,
-                    ),
-                  )
-                  : Text('登録'),
+                      ? SizedBox(
+                          width: 24,
+                          height: 24,
+                          child: CircularProgressIndicator(
+                            color: Colors.white,
+                            strokeWidth: 2,
+                          ),
+                        )
+                      : Text('登録'),
                 ),
               ],
             ),
@@ -237,7 +241,7 @@ class _MyHomePageState extends State<MyHomePage> {
                       Container(
                         margin: const EdgeInsets.all(20),
                         decoration: BoxDecoration(
-                          border: Border.all(color: Colors.green,width: 10),
+                          border: Border.all(color: Colors.green, width: 10),
                           color: Colors.red,
                         ),
                         child: _croppedImageBytes != null
@@ -247,7 +251,8 @@ class _MyHomePageState extends State<MyHomePage> {
                                 : const Center(
                                     child: Text(
                                       '画像を選択',
-                                      style: TextStyle(color: Colors.white, fontSize: 50),
+                                      style: TextStyle(
+                                          color: Colors.white, fontSize: 50),
                                     ),
                                   ),
                       ),

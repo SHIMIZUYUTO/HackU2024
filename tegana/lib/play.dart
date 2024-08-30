@@ -342,6 +342,13 @@ class _Ctest extends State<playing> {
                   ),
                 ),
               ),
+            SizedBox(height: 10),
+            ElevatedButton(
+              onPressed: () async {
+                final result = await Navigator.pushNamed(context,'/result');
+              },
+              child: Text('結果'),
+            ),
             SizedBox(height: 20),
             Expanded(
               child: GridView.count(

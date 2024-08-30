@@ -4,6 +4,7 @@ import 'MainPage.dart';
 import 'Photo.dart';
 import 'view.dart';
 import 'play.dart';
+import 'Result.dart';
 
 void main() => runApp(MyApp());
 
@@ -46,6 +47,7 @@ class MyApp extends StatelessWidget {
         '/inTexts1': (BuildContext context) => new inTexts1(),
         'PL': (BuildContext context) => new PL(),
         '/playing': (BuildContext context) => new playing(),
+        '/result': (BuildContext context) => new Result(),
       },
     );
   }

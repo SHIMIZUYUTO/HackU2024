@@ -39,6 +39,7 @@ class _MyHomePageState extends State<MyHomePage> {
   final GlobalKey _repaintBoundaryKey = GlobalKey();
   bool _isLoading = false;
 
+  // initState：テキスト入力が変更されるたびに、_updateAvatarを呼び出す
   @override
   void initState() {
     super.initState();
@@ -52,6 +53,8 @@ class _MyHomePageState extends State<MyHomePage> {
     super.dispose();
   }
 
+  // _updateAvatar: setStateを呼び出し、UIの再描画をトリガーする
+  // 画像選択、クロップ、テキスト入力のいずれかが行われると、それぞれの処理でsetStateが呼び出され、プレビューが更新される
   void _updateAvatar() {
     setState(() {});
   }
@@ -215,6 +218,7 @@ class _MyHomePageState extends State<MyHomePage> {
 
   @override
   Widget build(BuildContext context) {
+    // テキストが変更されるたびにbuildメソッドが呼び出され、表示が更新される
     String firstChar =
         _textController.text.isNotEmpty ? _textController.text[0] : '';
 
@@ -265,16 +269,25 @@ class _MyHomePageState extends State<MyHomePage> {
             Expanded(
               child: GestureDetector(
                 onTap: _getImage,
+
+                // RepaintBoundaryウィジェット：プレビュー機能
                 child: RepaintBoundary(
                   key: _repaintBoundaryKey,
                   child: Stack(
                     children: <Widget>[
+
+                      // 画像表示部分
                       Container(
+                        // 画像の周りに緑色の枠線を表示し、背景を赤色にする
                         margin: const EdgeInsets.all(20),
                         decoration: BoxDecoration(
                           border: Border.all(color: Colors.green, width: 10),
                           color: Colors.red,
                         ),
+
+                        // クロップされた画像(_croppedImageBytes)がある場合はそれを表示する
+                        // クロップされた画像が無い場合は元の画像(_imageBytes)を表示する
+                        // 画像が選択されていない場合は「画像を選択」を表示する
                         child: _croppedImageBytes != null
                             ? Image.memory(_croppedImageBytes!)
                             : _imageBytes != null
@@ -287,6 +300,9 @@ class _MyHomePageState extends State<MyHomePage> {
                                     ),
                                   ),
                       ),
+
+                      // テキストの頭文字の表示
+                      // 入力されたテキストの最初の文字(firstChar)を画像の右上に円形のアバターとして表示
                       Positioned(
                         top: 30,
                         right: 30,

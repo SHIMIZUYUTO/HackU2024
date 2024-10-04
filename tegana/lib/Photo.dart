@@ -2,7 +2,7 @@ import 'dart:typed_data';
 import 'dart:ui' as ui;
 import 'package:flutter/material.dart';
 import 'package:flutter/rendering.dart';
-import 'package:image_picker/image_picker.dart';
+import 'package:image_picker/image_picker.dart'; // デバイスのギャラリーやcameraから画像を選択するためのプラグイン
 import 'package:crop_your_image/crop_your_image.dart';
 import 'package:image/image.dart' as img;
 import 'main.dart';
@@ -28,7 +28,11 @@ class MyHomePage extends StatefulWidget {
 class _MyHomePageState extends State<MyHomePage> {
   Uint8List? _imageBytes;
   Uint8List? _croppedImageBytes;
+
+  // ImagePicker: デバイスのギャラリーから画像を選択するためのプラグイン
   final picker = ImagePicker();
+
+  // CropController: クロップ操作を制御する
   final _cropController = CropController();
   final TextEditingController _textController = TextEditingController();
   final _formKey = GlobalKey<FormState>();
@@ -52,17 +56,27 @@ class _MyHomePageState extends State<MyHomePage> {
     setState(() {});
   }
 
+  // 画像選択機能
   Future<void> _getImage() async {
     try {
+      // pickImage：デバイスのギャラリーから画像を選択
+      // ImageSource.gallery：画像の取得元をギャラリーに指定
+      // await：非同期処理を使用して、ユーザが画像を選択するのを待つ
       final XFile? pickedFile =
           await picker.pickImage(source: ImageSource.gallery);
 
+      // pickedFile != null：(画像が選択された場合)画像をバイトデータとして読み込む
       if (pickedFile != null) {
         final bytes = await pickedFile.readAsBytes();
+
+        // setState：_imageBytesを更新し、UIを再描画する
+        // _croppedImageBytesをリセットして、新しい画像のクロップを準備する
         setState(() {
           _imageBytes = Uint8List.fromList(bytes);
           _croppedImageBytes = null;
         });
+
+        // クロップダイアログを表示する
         _showCropDialog();
       } else {
         print('No image selected.');
@@ -75,7 +89,9 @@ class _MyHomePageState extends State<MyHomePage> {
     }
   }
 
+  // 画像クロップ機能
   void _showCropDialog() {
+    // クロップダイアログを表示する
     showDialog(
       context: context,
       builder: (context) {
@@ -83,6 +99,12 @@ class _MyHomePageState extends State<MyHomePage> {
           child: Column(
             children: [
               Expanded(
+                // Crop：画像のクロップ機能を提供
+                // image：クロップする画像データ(_imageBytes)を指定
+                // controller：クロップ操作を制御するためのコントローラを指定
+                // aspectRatio：クロップする画像の長辺と短辺の比率を指定
+                // onStatusChanged：クロップ状態の変更をコンソールに出力
+                // onCropped：クロップされた画像データを_resizeAndSetImage()に渡す
                 child: Crop(
                   image: _imageBytes!,
                   controller: _cropController,
@@ -95,6 +117,9 @@ class _MyHomePageState extends State<MyHomePage> {
                   },
                 ),
               ),
+
+              // クロップボタン
+              // _cropController.crop():クロップ処理を開始
               ElevatedButton(
                 onPressed: () {
                   try {
@@ -131,10 +156,16 @@ class _MyHomePageState extends State<MyHomePage> {
 
   // 画像をリサイズ
   void _resizeAndSetImage(Uint8List croppedData) {
+    // imageライブラリのdecodeImage()関数を利用して、バイトデータからImageオブジェクトを生成
+    // この操作によって、画像データを操作可能な形式に変換する
     img.Image? image = img.decodeImage(croppedData);
 
+    // imageが正常にデコードされた場合、copyResize()関数を利用して画像をリサイズ
     if (image != null) {
       img.Image resizedImage = img.copyResize(image, width: 450, height: 675);
+      
+      // リサイズされた画像をJPEG方式にエンコードする
+      // エンコードされたデータをUint8Listとして_croppedImageBytesに設定
       setState(() {
         _croppedImageBytes = Uint8List.fromList(img.encodeJpg(resizedImage));
       });
